@@ -39,4 +39,3 @@ Game Finder is a beautiful, AI-powered Streamlit web application that acts as a 
 - [Streamlit](https://streamlit.io/) - The web framework used
 - [LangChain](https://python.langchain.com/) - LLM orchestration
 - [Google Gemini API](https://ai.google.dev/) - AI reasoning and matching
-- Steam API - High-quality image fetching
