@@ -125,8 +125,12 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
+**Wave 1**
 
 - [ ] 05-01: Build game detail page layout with header synopsis, developer sidebar, and system requirement modules.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 05-02: Integrate responsive trailer video player and screenshot gallery lightbox.
 
 ### Phase 6: AI Game Finder Interactive Interface
