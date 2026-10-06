@@ -46,7 +46,7 @@ def clean_json_markdown(text: str) -> str:
 
 class RecommendationService:
     def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
-        self.api_key = api_key or settings.GEMINI_API_KEY
+        self.api_key = api_key if api_key is not None else settings.GEMINI_API_KEY
         self.model_name = model_name or settings.GEMINI_MODEL
         
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -54,7 +54,7 @@ class RecommendationService:
         self.prompt_template = load_prompt(prompt_path)
 
     def _get_llm(self) -> GoogleGenerativeAI:
-        if not self.api_key:
+        if not self.api_key or self.api_key == "your-gemini-api-key-here":
             raise RecommendationError(
                 "GEMINI_API_KEY is not configured. Please set GEMINI_API_KEY in the environment or .env file."
             )
