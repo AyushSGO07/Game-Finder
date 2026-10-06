@@ -46,8 +46,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Build asynchronous Steam Store API client with multi-tier TTL caching (in-memory + database).
-- [ ] 02-02: Implement image fallback resolvers and global search/filter endpoints with pagination.
+- [x] 02-01: Build asynchronous Steam Store API client with multi-tier TTL caching (in-memory + database).
+- [x] 02-02: Implement image fallback resolvers and global search/filter endpoints with pagination.
 
 ### Phase 3: Database & Authentication
 **Goal**: Establish Supabase PostgreSQL schema, Row-Level Security, and authentication session handling.

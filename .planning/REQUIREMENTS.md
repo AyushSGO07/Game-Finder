@@ -17,10 +17,10 @@ Requirements for the initial production release. Each requirement maps directly 
 
 ### Game Metadata & Caching Service (META)
 
-- [ ] **META-01**: Backend fetches game capsules, trailers, screenshots, and metadata from Steam Store Web API.
-- [ ] **META-02**: Backend provides verified high-resolution fallback artwork and metadata when Steam data is unavailable.
-- [ ] **META-03**: Multi-tier TTL caching (in-memory LRU + database cache) prevents third-party API rate limits (HTTP 429).
-- [ ] **META-04**: Global game search endpoint supports debounced text queries, genre filters, and rating sorting.
+- [x] **META-01**: Backend fetches game capsules, trailers, screenshots, and metadata from Steam Store Web API.
+- [x] **META-02**: Backend provides verified high-resolution fallback artwork and metadata when Steam data is unavailable.
+- [x] **META-03**: Multi-tier TTL caching (in-memory LRU + database cache) prevents third-party API rate limits (HTTP 429).
+- [x] **META-04**: Global game search endpoint supports debounced text queries, genre filters, and rating sorting.
 
 ### Database & Authentication (AUTH)
 
@@ -96,10 +96,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AI-03 | Phase 1 | Complete |
 | AI-04 | Phase 1 | Complete |
 | AI-05 | Phase 1 | Complete |
-| META-01 | Phase 2 | Pending |
-| META-02 | Phase 2 | Pending |
-| META-03 | Phase 2 | Pending |
-| META-04 | Phase 2 | Pending |
+| META-01 | Phase 2 | Complete |
+| META-02 | Phase 2 | Complete |
+| META-03 | Phase 2 | Complete |
+| META-04 | Phase 2 | Complete |
 | AUTH-01 | Phase 3 | Pending |
 | AUTH-02 | Phase 3 | Pending |
 | AUTH-03 | Phase 3 | Pending |
