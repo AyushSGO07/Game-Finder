@@ -38,15 +38,15 @@ created: 2026-10-07
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 4-01-01 | 01 | 1 | DISC-01 | T-4-01 | Next.js project scaffolds cleanly with strict TypeScript configurations | unit | `npm --prefix frontend run build` | ❌ W0 | ⬜ pending |
-| 4-01-02 | 01 | 1 | DISC-01 | T-4-02 | Root layout enforces dark cinematic tokens and safe component boundaries | unit | `npm --prefix frontend test -- src/__tests__/Layout.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-01-03 | 01 | 1 | DISC-01 | T-4-03 | Frontend API client sanitizes inputs and handles backend downtime gracefully | unit | `npm --prefix frontend test -- src/__tests__/Api.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-02-01 | 02 | 2 | DISC-01 | T-4-04 | Desktop Navbar renders persistent links and responds to route changes | unit | `npm --prefix frontend test -- src/__tests__/Navbar.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-02-02 | 02 | 2 | DISC-02 | T-4-05 | Mobile navigation drawer responds to viewport breakpoints and touch gestures | unit | `npm --prefix frontend test -- src/__tests__/MobileNav.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-02-03 | 02 | 2 | DISC-01, DISC-02 | T-4-06 | Quick search trigger opens and closes modal with sanitized input states | unit | `npm --prefix frontend test -- src/__tests__/SearchModal.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-03-01 | 03 | 3 | DISC-03 | T-4-07 | Hero carousel auto-plays, pauses on hover, and navigates slides correctly | unit | `npm --prefix frontend test -- src/__tests__/HeroCarousel.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-03-02 | 03 | 3 | DISC-04 | T-4-08 | Horizontal game shelves scroll smoothly and render capsule cards with ratings | unit | `npm --prefix frontend test -- src/__tests__/GameShelf.test.tsx` | ❌ W0 | ⬜ pending |
-| 4-03-03 | 03 | 3 | DISC-05 | T-4-09 | 12 Genre tiles render with thematic badges and home page integrates all sections | integration | `npm --prefix frontend test -- src/__tests__/DiscoveryHome.test.tsx` | ❌ W0 | ⬜ pending |
+| 4-01-01 | 01 | 1 | DISC-01 | T-4-01 | Next.js project scaffolds cleanly with strict TypeScript configurations | unit | `npm --prefix frontend run build` | ✅ yes | ✅ green |
+| 4-01-02 | 01 | 1 | DISC-01 | T-4-02 | Root layout enforces dark cinematic tokens and safe component boundaries | unit | `npm --prefix frontend test -- src/__tests__/Layout.test.tsx` | ✅ yes | ✅ green |
+| 4-01-03 | 01 | 1 | DISC-01 | T-4-03 | Frontend API client sanitizes inputs and handles backend downtime gracefully | unit | `npm --prefix frontend test -- src/__tests__/Api.test.tsx` | ✅ yes | ✅ green |
+| 4-02-01 | 02 | 2 | DISC-01 | T-4-04 | Desktop Navbar renders persistent links and responds to route changes | unit | `npm --prefix frontend test -- src/__tests__/Navbar.test.tsx` | ✅ yes | ✅ green |
+| 4-02-02 | 02 | 2 | DISC-02 | T-4-05 | Mobile navigation drawer responds to viewport breakpoints and touch gestures | unit | `npm --prefix frontend test -- src/__tests__/MobileNav.test.tsx` | ✅ yes | ✅ green |
+| 4-02-03 | 02 | 2 | DISC-01, DISC-02 | T-4-06 | Quick search trigger opens and closes modal with sanitized input states | unit | `npm --prefix frontend test -- src/__tests__/SearchModal.test.tsx` | ✅ yes | ✅ green |
+| 4-03-01 | 03 | 3 | DISC-03 | T-4-07 | Hero carousel auto-plays, pauses on hover, and navigates slides correctly | unit | `npm --prefix frontend test -- src/__tests__/HeroCarousel.test.tsx` | ✅ yes | ✅ green |
+| 4-03-02 | 03 | 3 | DISC-04 | T-4-08 | Horizontal game shelves scroll smoothly and render capsule cards with ratings | unit | `npm --prefix frontend test -- src/__tests__/GameShelf.test.tsx` | ✅ yes | ✅ green |
+| 4-03-03 | 03 | 3 | DISC-05 | T-4-09 | 12 Genre tiles render with thematic badges and home page integrates all sections | integration | `npm --prefix frontend test -- src/__tests__/DiscoveryHome.test.tsx` | ✅ yes | ✅ green |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -54,14 +54,14 @@ created: 2026-10-07
 
 ## Wave 0 Requirements
 
-- [ ] `frontend/src/__tests__/Layout.test.tsx` — Root shell stubs
-- [ ] `frontend/src/__tests__/Api.test.tsx` — API client stubs
-- [ ] `frontend/src/__tests__/Navbar.test.tsx` — Desktop navbar stubs
-- [ ] `frontend/src/__tests__/MobileNav.test.tsx` — Mobile navigation stubs
-- [ ] `frontend/src/__tests__/SearchModal.test.tsx` — Search modal stubs
-- [ ] `frontend/src/__tests__/HeroCarousel.test.tsx` — Hero carousel stubs
-- [ ] `frontend/src/__tests__/GameShelf.test.tsx` — Shelf scrolling stubs
-- [ ] `frontend/src/__tests__/DiscoveryHome.test.tsx` — Full home integration stubs
+- [x] `frontend/src/__tests__/Layout.test.tsx` — Root shell stubs
+- [x] `frontend/src/__tests__/Api.test.tsx` — API client stubs
+- [x] `frontend/src/__tests__/Navbar.test.tsx` — Desktop navbar stubs
+- [x] `frontend/src/__tests__/MobileNav.test.tsx` — Mobile navigation stubs
+- [x] `frontend/src/__tests__/SearchModal.test.tsx` — Search modal stubs
+- [x] `frontend/src/__tests__/HeroCarousel.test.tsx` — Hero carousel stubs
+- [x] `frontend/src/__tests__/GameShelf.test.tsx` — Shelf scrolling stubs
+- [x] `frontend/src/__tests__/DiscoveryHome.test.tsx` — Full home integration stubs
 
 ---
 

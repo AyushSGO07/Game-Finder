@@ -99,15 +99,15 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 04-01: Initialize Next.js 15 App Router project with Tailwind CSS, Lucide icons, and dark cinematic theme.
+- [x] 04-01: Initialize Next.js 15 App Router project with Tailwind CSS, Lucide icons, and dark cinematic theme.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 04-02: Implement persistent global desktop top bar and responsive mobile navigation drawer.
+- [x] 04-02: Implement persistent global desktop top bar and responsive mobile navigation drawer.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 04-03: Build store-style cinematic Hero carousel and categorized horizontal discovery shelves.
+- [x] 04-03: Build store-style cinematic Hero carousel and categorized horizontal discovery shelves.
 
 ### Phase 5: Game Detail Pages & Rich Media
 

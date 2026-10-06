@@ -31,11 +31,11 @@ Requirements for the initial production release. Each requirement maps directly 
 
 ### Frontend Shell & Store Discovery Hub (DISC)
 
-- [ ] **DISC-01**: Persistent dark-themed global navigation bar with links to Home, Discover, Game Finder, GOTY, and My Library.
-- [ ] **DISC-02**: Responsive mobile navigation with compact header and slide-out navigation drawer / bottom bar.
-- [ ] **DISC-03**: Store-style Hero carousel with cinematic artwork, game title, tags, rating badge, and quick-action CTAs.
-- [ ] **DISC-04**: Categorized horizontal game carousels for Trending, New Releases, Top Rated, and Hidden Gems with smooth scrolling and keyboard controls.
-- [ ] **DISC-05**: Genre browsing hub displaying interactive tiles for major gaming genres (Action, RPG, Strategy, Indie, etc.).
+- [x] **DISC-01**: Persistent dark-themed global navigation bar with links to Home, Discover, Game Finder, GOTY, and My Library.
+- [x] **DISC-02**: Responsive mobile navigation with compact header and slide-out navigation drawer / bottom bar.
+- [x] **DISC-03**: Store-style Hero carousel with cinematic artwork, game title, tags, rating badge, and quick-action CTAs.
+- [x] **DISC-04**: Categorized horizontal game carousels for Trending, New Releases, Top Rated, and Hidden Gems with smooth scrolling and keyboard controls.
+- [x] **DISC-05**: Genre browsing hub displaying interactive tiles for major gaming genres (Action, RPG, Strategy, Indie, etc.).
 
 ### Game Detail & Rich Media Experience (GAME)
 
@@ -104,11 +104,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-02 | Phase 3 | Complete |
 | AUTH-03 | Phase 3 | Complete |
 | AUTH-04 | Phase 3 | Complete |
-| DISC-01 | Phase 4 | Pending |
-| DISC-02 | Phase 4 | Pending |
-| DISC-03 | Phase 4 | Pending |
-| DISC-04 | Phase 4 | Pending |
-| DISC-05 | Phase 4 | Pending |
+| DISC-01 | Phase 4 | Complete |
+| DISC-02 | Phase 4 | Complete |
+| DISC-03 | Phase 4 | Complete |
+| DISC-04 | Phase 4 | Complete |
+| DISC-05 | Phase 4 | Complete |
 | GAME-01 | Phase 5 | Pending |
 | GAME-02 | Phase 5 | Pending |
 | GAME-03 | Phase 5 | Pending |
