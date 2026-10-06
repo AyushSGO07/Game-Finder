@@ -88,3 +88,82 @@ export interface GameSearchResponse {
   page: number;
   per_page: number;
 }
+
+export interface RecommendationRequest {
+  genre: string;
+  age: string;
+  difficulty: string;
+  prompt?: string;
+}
+
+export interface GameRecommendation {
+  name: string;
+  match_reason: string;
+  attributes: string[];
+}
+
+export interface EnrichedRecommendation extends GameRecommendation {
+  id?: string | number;
+  steam_appid?: number;
+  header_image?: string;
+  capsule_image?: string;
+  hero_image?: string;
+  rating?: number;
+  release_date?: string;
+  store_url?: string;
+  price?: string;
+}
+
+export interface RecommendationResponse {
+  recommendations: GameRecommendation[];
+}
+
+export interface WizardPreferences {
+  genre: string;
+  mood: string;
+  difficulty: string;
+  age: string;
+  prompt: string;
+}
+
+export const ALLOWED_GENRES = [
+  'Action',
+  'RPG',
+  'Adventure',
+  'Shooter',
+  'Horror',
+  'Strategy',
+  'Simulation',
+  'Racing',
+  'Sports',
+  'Indie',
+  'Puzzle',
+  'Platformer',
+  'Any',
+] as const;
+
+export const ALLOWED_DIFFICULTIES = [
+  'Casual',
+  'Normal',
+  'Hard',
+  'Punishing',
+  'Any',
+] as const;
+
+export const ALLOWED_AGE_RATINGS = [
+  'Everyone',
+  'Everyone 10+',
+  'Teen',
+  'Mature',
+  'Any',
+] as const;
+
+export const MOOD_OPTIONS = [
+  'Cozy & Chill',
+  'High Adrenaline',
+  'Deep Story',
+  'Mind-Bending',
+  'Dark & Gritty',
+  'Tactical & Strategic',
+  'Pure Fun',
+] as const;
