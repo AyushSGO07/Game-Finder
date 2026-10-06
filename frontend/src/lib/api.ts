@@ -1,5 +1,10 @@
-import { GameCard, HeroSlide, GenreTile, ShelfCategory } from '@/types/game';
-import { MOCK_HERO_SLIDES, MOCK_SHELF_GAMES, MOCK_GENRE_TILES } from './mockData';
+import { GameCard, HeroSlide, GenreTile, ShelfCategory, GameDetail } from '@/types/game';
+import {
+  MOCK_HERO_SLIDES,
+  MOCK_SHELF_GAMES,
+  MOCK_GENRE_TILES,
+  getDefaultMockGameDetail,
+} from './mockData';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 const REQUEST_TIMEOUT_MS = 3000;
@@ -68,6 +73,26 @@ export async function fetchGenres(): Promise<GenreTile[]> {
   }
 }
 
+export async function fetchGameDetails(id: string | number): Promise<GameDetail | null> {
+  const strId = String(id).trim();
+  if (!strId) return null;
+
+  try {
+    const res = await fetchWithTimeout(`${BASE_URL}/games/${strId}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.title) {
+        return data;
+      }
+    }
+  } catch {
+    // Network/timeout fallback
+  }
+
+  // Gracefully fallback to high-fidelity mock dataset
+  return getDefaultMockGameDetail(strId);
+}
+
 export async function searchGames(query: string): Promise<GameCard[]> {
   const trimmed = query.trim().toLowerCase();
   if (!trimmed) return [];
@@ -99,12 +124,13 @@ export async function searchGames(query: string): Promise<GameCard[]> {
   const results: GameCard[] = [];
 
   for (const game of allMock) {
-    if (seen.has(game.id)) continue;
+    const gameId = String(game.id);
+    if (seen.has(gameId)) continue;
     const matchTitle = game.title.toLowerCase().includes(trimmed);
     const matchGenre = game.genres.some((g) => g.toLowerCase().includes(trimmed));
     const matchDev = game.developer?.toLowerCase().includes(trimmed);
     if (matchTitle || matchGenre || matchDev) {
-      seen.add(game.id);
+      seen.add(gameId);
       results.push(game);
     }
   }

@@ -1,4 +1,4 @@
-import { GameCard, HeroSlide, GenreTile } from '@/types/game';
+import { GameCard, HeroSlide, GenreTile, GameDetail } from '@/types/game';
 
 export const MOCK_HERO_SLIDES: HeroSlide[] = [
   {
@@ -505,3 +505,198 @@ export const MOCK_GENRE_TILES: GenreTile[] = [
     accentColor: '#0ea5e9',
   },
 ];
+
+export const MOCK_GAME_DETAILS: Record<string, GameDetail> = {
+  '1245620': {
+    id: 1245620,
+    steam_appid: 1245620,
+    title: 'ELDEN RING',
+    header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg',
+    capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/capsule_616x353.jpg',
+    hero_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/library_hero.jpg',
+    short_description: 'THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+    detailed_description: 'A vast world where open fields with a variety of situations and huge dungeons with complex and three-dimensional designs are seamlessly connected. As you explore, the joy of discovering unknown and overwhelming threats await you, leading to a high sense of accomplishment.',
+    about_the_game: 'A vast world full of excitement. An epic drama born from a myth. Unique online play that loosely connects you to others.',
+    genres: ['Action', 'RPG', 'Open World', 'Souls-like', 'Dark Fantasy'],
+    developers: ['FromSoftware Inc.'],
+    publishers: ['Bandai Namco Entertainment', 'FromSoftware Inc.'],
+    release_date: 'Feb 25, 2022',
+    rating: 9.6,
+    price: '$59.99',
+    platforms: ['Windows', 'PlayStation', 'Xbox'],
+    website: 'https://www.eldenring.jp/',
+    steam_url: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+    movies: [
+      {
+        id: 256872088,
+        name: 'ELDEN RING - Launch Trailer',
+        thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/256872088/movie.293x165.jpg',
+        mp4_url: 'https://video.akamai.steamstatic.com/store_trailers/256872088/movie480.mp4',
+        webm_url: 'https://video.akamai.steamstatic.com/store_trailers/256872088/movie480.webm',
+      },
+    ],
+    screenshots: [
+      {
+        id: 1,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_e1d3e8e29a3a1496a1a4bbec4cb44edcce5c5c96.600x338.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_e1d3e8e29a3a1496a1a4bbec4cb44edcce5c5c96.1920x1080.jpg',
+      },
+      {
+        id: 2,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_8d70233e7530be9081e626e2547b7fd8f72946c0.600x338.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_8d70233e7530be9081e626e2547b7fd8f72946c0.1920x1080.jpg',
+      },
+      {
+        id: 3,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_374304892c9fbe00e57bb674d8efdcfae1eab327.600x338.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_374304892c9fbe00e57bb674d8efdcfae1eab327.1920x1080.jpg',
+      },
+      {
+        id: 4,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_c42289196b0258dc78ad2944b360b9385b0d62c9.600x338.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_c42289196b0258dc78ad2944b360b9385b0d62c9.1920x1080.jpg',
+      },
+    ],
+    pc_requirements: {
+      minimum: 'OS: Windows 10\nProcessor: INTEL CORE I5-8400 or AMD RYZEN 3 3300X\nMemory: 12 GB RAM\nGraphics: NVIDIA GEFORCE GTX 1060 3 GB or AMD RADEON RX 580 4 GB\nDirectX: Version 12\nStorage: 60 GB available space',
+      recommended: 'OS: Windows 10/11\nProcessor: INTEL CORE I7-8700K or AMD RYZEN 5 3600X\nMemory: 16 GB RAM\nGraphics: NVIDIA GEFORCE GTX 1070 8 GB or AMD RADEON RX VEGA 56 8 GB\nDirectX: Version 12\nStorage: 60 GB available space',
+    },
+  },
+  '1091500': {
+    id: 1091500,
+    steam_appid: 1091500,
+    title: 'Cyberpunk 2077',
+    header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg',
+    capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/capsule_616x353.jpg',
+    hero_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/library_hero.jpg',
+    short_description: 'Cyberpunk 2077 is an open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.',
+    detailed_description: 'Immerse yourself in Night City, an urban megalopolis obsessed with power, glamour, and body modification.',
+    about_the_game: 'Become an urban mercenary equipped with cybernetic enhancements and build your legend on the streets of Night City.',
+    genres: ['RPG', 'Open World', 'Cyberpunk', 'Sci-Fi', 'FPS'],
+    developers: ['CD PROJEKT RED'],
+    publishers: ['CD PROJEKT RED'],
+    release_date: 'Dec 10, 2020',
+    rating: 9.2,
+    price: '$59.99',
+    platforms: ['Windows'],
+    website: 'https://www.cyberpunk.net/',
+    steam_url: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+    movies: [
+      {
+        id: 256972088,
+        name: 'Cyberpunk 2077 — Official Launch Trailer',
+        thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/256972088/movie.293x165.jpg',
+        mp4_url: 'https://video.akamai.steamstatic.com/store_trailers/256972088/movie480.mp4',
+        webm_url: 'https://video.akamai.steamstatic.com/store_trailers/256972088/movie480.webm',
+      },
+    ],
+    screenshots: [
+      {
+        id: 1,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/ss_4996924b2bf601ea187c7b2e38ee1a26d113c23e.600x338.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/ss_4996924b2bf601ea187c7b2e38ee1a26d113c23e.1920x1080.jpg',
+      },
+    ],
+    pc_requirements: {
+      minimum: 'OS: 64-bit Windows 10\nProcessor: Core i7-6700 or Ryzen 5 1600\nMemory: 12 GB RAM\nGraphics: GeForce GTX 1060 6GB or Radeon RX 580 8GB\nDirectX: Version 12\nStorage: 70 GB available space',
+      recommended: 'OS: 64-bit Windows 10\nProcessor: Core i7-12700 or Ryzen 7 7800X3D\nMemory: 16 GB RAM\nGraphics: GeForce RTX 2060 SUPER or Radeon RX 5700 XT\nDirectX: Version 12\nStorage: 70 GB available space',
+    },
+  },
+  '1086940': {
+    id: 1086940,
+    steam_appid: 1086940,
+    title: "Baldur's Gate 3",
+    header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg',
+    capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/capsule_616x353.jpg',
+    hero_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/library_hero.jpg',
+    short_description: "Baldur's Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal.",
+    detailed_description: 'Choose from a wide selection of D&D races and classes, or play as an origin character with a hand-crafted background.',
+    about_the_game: 'Abducted, infected, lost. You are turning into a monster, but as the corruption inside you grows, so does your power.',
+    genres: ['RPG', 'CRPG', 'Tactical', 'Turn-Based', 'Story Rich'],
+    developers: ['Larian Studios'],
+    publishers: ['Larian Studios'],
+    release_date: 'Aug 3, 2023',
+    rating: 9.7,
+    price: '$59.99',
+    platforms: ['Windows', 'Mac'],
+    website: 'https://baldursgate3.game/',
+    steam_url: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+    movies: [
+      {
+        id: 256958488,
+        name: "Baldur's Gate 3 - Official Launch Trailer",
+        thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/256958488/movie.293x165.jpg',
+        mp4_url: 'https://video.akamai.steamstatic.com/store_trailers/256958488/movie480.mp4',
+        webm_url: 'https://video.akamai.steamstatic.com/store_trailers/256958488/movie480.webm',
+      },
+    ],
+    screenshots: [
+      {
+        id: 1,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/ss_3ba3b817da37912b77526bbca7f14ebc45ef8ce8.600x338.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/ss_3ba3b817da37912b77526bbca7f14ebc45ef8ce8.1920x1080.jpg',
+      },
+    ],
+    pc_requirements: {
+      minimum: 'OS: Windows 10 64-bit\nProcessor: Intel I5 4690 / AMD FX 8350\nMemory: 8 GB RAM\nGraphics: Nvidia GTX 970 / RX 480 (4GB+ of VRAM)\nDirectX: Version 11\nStorage: 150 GB available space',
+      recommended: 'OS: Windows 10/11 64-bit\nProcessor: Intel i7 8700K / AMD r5 3600\nMemory: 16 GB RAM\nGraphics: Nvidia 2060 Super / RX 5700 XT (8GB+ of VRAM)\nDirectX: Version 11\nStorage: 150 GB available space',
+    },
+  },
+};
+
+export function getDefaultMockGameDetail(id: string | number): GameDetail {
+  const strId = String(id);
+  const numId = typeof id === 'number' ? id : parseInt(id, 10) || 1245620;
+
+  // Check if we have exact match in dictionary
+  if (MOCK_GAME_DETAILS[strId]) {
+    return MOCK_GAME_DETAILS[strId];
+  }
+
+  // Check if we have a match in hero slides or shelf games
+  const heroMatch = MOCK_HERO_SLIDES.find((h) => String(h.steam_appid) === strId || h.id === strId);
+  const title = heroMatch ? heroMatch.title : `Featured Game #${strId}`;
+  const genres = heroMatch ? heroMatch.genres : ['Action', 'Adventure', 'RPG'];
+  const rating = heroMatch ? heroMatch.rating : 9.0;
+  const synopsis = heroMatch ? heroMatch.synopsis : 'An incredible gaming experience filled with rich lore, deep systems, and breathtaking visual design.';
+
+  return {
+    id: numId,
+    steam_appid: numId,
+    title,
+    header_image: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
+    capsule_image: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/capsule_616x353.jpg`,
+    hero_image: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/library_hero.jpg`,
+    short_description: synopsis,
+    detailed_description: `${synopsis} Explore immersive worlds, master complex mechanics, and customize your build to overcome challenges.`,
+    about_the_game: `${synopsis} Featuring solo and cooperative playstyles with hours of cinematic content.`,
+    genres,
+    developers: ['Master Game Studios'],
+    publishers: ['Global Interactive Publishing'],
+    release_date: '2024',
+    rating,
+    price: '$59.99',
+    platforms: ['Windows', 'PlayStation', 'Xbox'],
+    steam_url: `https://store.steampowered.com/app/${numId}/`,
+    movies: [
+      {
+        id: 1001,
+        name: `${title} - Official Showcase`,
+        thumbnail: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
+        mp4_url: 'https://video.akamai.steamstatic.com/store_trailers/256872088/movie480.mp4',
+        webm_url: 'https://video.akamai.steamstatic.com/store_trailers/256872088/movie480.webm',
+      },
+    ],
+    screenshots: [
+      {
+        id: 1,
+        path_thumbnail: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
+        path_full: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
+      },
+    ],
+    pc_requirements: {
+      minimum: 'OS: Windows 10 64-bit\nProcessor: Intel Core i5 or AMD Ryzen 5\nMemory: 8 GB RAM\nGraphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580\nStorage: 50 GB available space',
+      recommended: 'OS: Windows 10/11 64-bit\nProcessor: Intel Core i7 or AMD Ryzen 7\nMemory: 16 GB RAM\nGraphics: NVIDIA GeForce RTX 3060 or AMD Radeon RX 6700 XT\nStorage: 50 GB SSD',
+    },
+  };
+}
