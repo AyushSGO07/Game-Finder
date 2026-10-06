@@ -150,8 +150,8 @@ Plans:
 
 Plans:
 
-- [ ] 06-01: Build AI Game Finder wizard with preference selectors and natural language prompt input.
-- [ ] 06-02: Connect frontend to FastAPI recommendation API with animated 8-card results view and skeleton loading states.
+- [x] 06-01: Build AI Game Finder wizard with preference selectors and natural language prompt input.
+- [x] 06-02: Connect frontend to FastAPI recommendation API with animated 8-card results view and skeleton loading states.
 
 ### Phase 7: Personal Library, Reviews & Ranked Lists
 

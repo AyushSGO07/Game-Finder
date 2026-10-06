@@ -1,22 +1,37 @@
-import { GameCard, HeroSlide, GenreTile, ShelfCategory, GameDetail } from '@/types/game';
+import {
+  GameCard,
+  HeroSlide,
+  GenreTile,
+  ShelfCategory,
+  GameDetail,
+  RecommendationRequest,
+  EnrichedRecommendation,
+} from '@/types/game';
 import {
   MOCK_HERO_SLIDES,
   MOCK_SHELF_GAMES,
   MOCK_GENRE_TILES,
   getDefaultMockGameDetail,
+  generateMockRecommendations,
 } from './mockData';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 const REQUEST_TIMEOUT_MS = 3000;
 
-async function fetchWithTimeout(url: string, timeoutMs = REQUEST_TIMEOUT_MS): Promise<Response> {
+async function fetchWithTimeout(
+  url: string,
+  options?: RequestInit,
+  timeoutMs = REQUEST_TIMEOUT_MS
+): Promise<Response> {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, {
+      ...options,
       signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
+        ...options?.headers,
       },
     });
     return response;
@@ -136,4 +151,82 @@ export async function searchGames(query: string): Promise<GameCard[]> {
   }
 
   return results;
+}
+
+export async function fetchRecommendations(
+  request: RecommendationRequest
+): Promise<EnrichedRecommendation[]> {
+  try {
+    const res = await fetchWithTimeout(
+      `${BASE_URL}/recommendations`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          genre: request.genre,
+          age: request.age,
+          difficulty: request.difficulty,
+          prompt: request.prompt || undefined,
+        }),
+      },
+      8000
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.recommendations) && data.recommendations.length > 0) {
+        const recs = data.recommendations;
+        // Attempt batch enrichment to attach Steam artwork and metadata
+        try {
+          const titles = recs.map((r: { name: string }) => r.name);
+          const enrichRes = await fetchWithTimeout(
+            `${BASE_URL}/games/batch`,
+            {
+              method: 'POST',
+              body: JSON.stringify({ titles }),
+            },
+            4000
+          );
+          if (enrichRes.ok) {
+            const enrichData = await enrichRes.json();
+            const cards: GameCard[] = enrichData.games || [];
+            return recs.map((r: { name: string; match_reason: string; attributes: string[] }, idx: number) => {
+              const matchedCard = cards.find(
+                (c) => c.title.toLowerCase() === r.name.toLowerCase()
+              );
+              return {
+                id: matchedCard?.id || matchedCard?.steam_appid || idx + 1,
+                steam_appid: matchedCard?.steam_appid,
+                name: r.name,
+                match_reason: r.match_reason,
+                attributes: r.attributes || matchedCard?.genres || [],
+                header_image: matchedCard?.header_image || matchedCard?.capsule_image,
+                capsule_image: matchedCard?.capsule_image,
+                hero_image: matchedCard?.hero_image,
+                rating: matchedCard?.rating,
+                release_date: matchedCard?.release_date,
+                store_url: matchedCard?.steam_appid
+                  ? `https://store.steampowered.com/app/${matchedCard.steam_appid}/`
+                  : undefined,
+              };
+            });
+          }
+        } catch {
+          // Batch enrichment failed, proceed with raw recs
+        }
+
+        // Return recommendations with fallback artwork mapping
+        return recs.map((r: { name: string; match_reason: string; attributes: string[] }, idx: number) => ({
+          id: idx + 1,
+          name: r.name,
+          match_reason: r.match_reason,
+          attributes: r.attributes || [],
+          header_image: undefined,
+        }));
+      }
+    }
+  } catch {
+    // Network or server failure, fall back to mock recommendation generator
+  }
+
+  return generateMockRecommendations(request);
 }

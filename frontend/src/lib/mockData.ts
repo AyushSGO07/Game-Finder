@@ -1,4 +1,11 @@
-import { GameCard, HeroSlide, GenreTile, GameDetail } from '@/types/game';
+import {
+  GameCard,
+  HeroSlide,
+  GenreTile,
+  GameDetail,
+  EnrichedRecommendation,
+  RecommendationRequest,
+} from '@/types/game';
 
 export const MOCK_HERO_SLIDES: HeroSlide[] = [
   {
@@ -699,4 +706,151 @@ export function getDefaultMockGameDetail(id: string | number): GameDetail {
       recommended: 'OS: Windows 10/11 64-bit\nProcessor: Intel Core i7 or AMD Ryzen 7\nMemory: 16 GB RAM\nGraphics: NVIDIA GeForce RTX 3060 or AMD Radeon RX 6700 XT\nStorage: 50 GB SSD',
     },
   };
+}
+
+export function generateMockRecommendations(
+  request: RecommendationRequest
+): EnrichedRecommendation[] {
+  const reqGenre = (request.genre || 'Action').toLowerCase();
+  const reqDifficulty = request.difficulty || 'Normal';
+  const reqAge = request.age || 'Teen';
+  const reqPrompt = request.prompt ? ` focusing on "${request.prompt}"` : '';
+
+  // Curated fallback master pool
+  const MASTER_RECOMMENDATIONS_POOL: EnrichedRecommendation[] = [
+    {
+      id: 1245620,
+      steam_appid: 1245620,
+      name: 'ELDEN RING',
+      match_reason: `Punishing combat and expansive dark fantasy open world directly matching your ${reqDifficulty} difficulty preference${reqPrompt}.`,
+      attributes: ['RPG', 'Action', 'Souls-like', 'Dark Fantasy', 'Open World'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/capsule_616x353.jpg',
+      rating: 9.6,
+      release_date: 'Feb 25, 2022',
+      store_url: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+    },
+    {
+      id: 1091500,
+      steam_appid: 1091500,
+      name: 'Cyberpunk 2077',
+      match_reason: `High-octane narrative sci-fi experience with deep build customization aligned with your ${reqAge} rating and theme${reqPrompt}.`,
+      attributes: ['RPG', 'Action', 'Sci-Fi', 'Cyberpunk', 'Story Rich'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1091500/capsule_616x353.jpg',
+      rating: 9.2,
+      release_date: 'Dec 10, 2020',
+      store_url: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+    },
+    {
+      id: 1086940,
+      steam_appid: 1086940,
+      name: "Baldur's Gate 3",
+      match_reason: `Unmatched tactical roleplaying depth and cinematic player agency tailored for your ${reqDifficulty} playstyle.`,
+      attributes: ['RPG', 'Strategy', 'Turn-Based', 'Story Rich', 'Fantasy'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1086940/capsule_616x353.jpg',
+      rating: 9.7,
+      release_date: 'Aug 3, 2023',
+      store_url: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+    },
+    {
+      id: 1145350,
+      steam_appid: 1145350,
+      name: 'Hades II',
+      match_reason: `Fast, fluid rogue-like combat loop with Olympian god boons catering to quick reflexes and rewarding skill progression.`,
+      attributes: ['Action', 'Roguelike', 'Indie', 'Hack and Slash', 'Mythology'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1145350/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1145350/capsule_616x353.jpg',
+      rating: 9.5,
+      release_date: 'May 6, 2024',
+      store_url: 'https://store.steampowered.com/app/1145350/Hades_II/',
+    },
+    {
+      id: 1996010,
+      steam_appid: 1996010,
+      name: 'Crow Country',
+      match_reason: `Chilling retro survival horror puzzles and eerie theme park atmosphere fulfilling your eerie mystery craving.`,
+      attributes: ['Horror', 'Survival Horror', 'Retro', 'Puzzle', 'Indie'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1996010/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1996010/capsule_616x353.jpg',
+      rating: 9.5,
+      release_date: 'May 9, 2024',
+      store_url: 'https://store.steampowered.com/app/1996010/Crow_Country/',
+    },
+    {
+      id: 2038790,
+      steam_appid: 2038790,
+      name: 'Lorelei and the Laser Eyes',
+      match_reason: `Surreal non-linear illusionist puzzle mystery engaging your deep intellectual problem-solving instincts.`,
+      attributes: ['Puzzle', 'Mystery', 'Indie', 'Surreal', 'Atmospheric'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2038790/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2038790/capsule_616x353.jpg',
+      rating: 9.3,
+      release_date: 'May 16, 2024',
+      store_url: 'https://store.steampowered.com/app/2038790/Lorelei_and_the_Laser_Eyes/',
+    },
+    {
+      id: 1809540,
+      steam_appid: 1809540,
+      name: 'Nine Sols',
+      match_reason: `Taopunk deflection-focused combat inspired by Sekiro that strictly demands rhythm and precision.`,
+      attributes: ['Action', 'Platformer', 'Metroidvania', 'Souls-like', '2D'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1809540/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1809540/capsule_616x353.jpg',
+      rating: 9.4,
+      release_date: 'May 29, 2024',
+      store_url: 'https://store.steampowered.com/app/1809540/Nine_Sols/',
+    },
+    {
+      id: 2379780,
+      steam_appid: 2379780,
+      name: 'Balatro',
+      match_reason: `Hypnotic poker roguelike synergy deck-builder delivering addictive mechanical depth for all skill levels.`,
+      attributes: ['Strategy', 'Roguelike', 'Indie', 'Card Game', 'Casual'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2379780/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2379780/capsule_616x353.jpg',
+      rating: 9.8,
+      release_date: 'Feb 20, 2024',
+      store_url: 'https://store.steampowered.com/app/2379780/Balatro/',
+    },
+    {
+      id: 1172470,
+      steam_appid: 1172470,
+      name: 'Apex Legends',
+      match_reason: `High mobility tactical squad shooter with balanced ballistic thrill matching competitive team play.`,
+      attributes: ['Shooter', 'Action', 'Multiplayer', 'FPS', 'Battle Royale'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1172470/capsule_616x353.jpg',
+      rating: 8.8,
+      release_date: 'Nov 4, 2020',
+      store_url: 'https://store.steampowered.com/app/1172470/Apex_Legends/',
+    },
+    {
+      id: 1030300,
+      steam_appid: 1030300,
+      name: 'Hollow Knight: Silksong',
+      match_reason: `Acrobatic needlework combat across a haunted kingdom ruled by silk and song, offering deep exploration.`,
+      attributes: ['Action', 'Adventure', 'Metroidvania', 'Souls-like', '2D'],
+      header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1030300/header.jpg',
+      capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/1030300/capsule_616x353.jpg',
+      rating: 9.8,
+      release_date: 'Coming Soon',
+      store_url: 'https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/',
+    },
+  ];
+
+  // Prioritize games that match the requested genre
+  const matching = MASTER_RECOMMENDATIONS_POOL.filter((game) =>
+    game.attributes.some((attr) => attr.toLowerCase().includes(reqGenre))
+  );
+
+  const nonMatching = MASTER_RECOMMENDATIONS_POOL.filter(
+    (game) => !game.attributes.some((attr) => attr.toLowerCase().includes(reqGenre))
+  );
+
+  const combined = [...matching, ...nonMatching];
+
+  // Guarantee exactly 8 recommendations
+  return combined.slice(0, 8);
 }
