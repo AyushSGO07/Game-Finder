@@ -1,0 +1,17 @@
+{
+    "name": null,
+    "input_variables": [
+        "genre",
+        "age",
+        "difficulty"
+    ],
+    "optional_variables": [],
+    "output_parser": null,
+    "partial_variables": {},
+    "metadata": null,
+    "tags": null,
+    "template": "User Preferences:\n- Genre: {genre}\n- Age Rating: {age}\n- Difficulty: {difficulty}\n\nInstructions:\n1. Identify exactly 8 well-known video games matching ALL these characteristics.\n2. Provide games that fit the difficulty and genre requested.\n3. Make your choices DIVERSE across different platforms and release years.\n4. Return the response EXCLUSIVELY as a valid JSON array containing objects with this exact structure (no markdown tags, no markdown formatting like ```json):\n[\n  {{\n    \"name\": \"Game Name\",\n    \"match_reason\": \"Why it matches.\",\n    \"attributes\": [\"attr1\", \"attr2\"]\n  }}\n]",
+    "template_format": "f-string",
+    "validate_template": true,
+    "_type": "prompt"
+}

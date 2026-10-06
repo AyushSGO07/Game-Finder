@@ -9,11 +9,11 @@ Requirements for the initial production release. Each requirement maps directly 
 
 ### AI Recommendation Engine (AI)
 
-- [ ] **AI-01**: Backend extracts and encapsulates Gemini recommendation logic from `Game_Finder.py` into a modular Python FastAPI service.
-- [ ] **AI-02**: Recommendation service accepts genre, age rating, and difficulty parameters and returns structured recommendations.
-- [ ] **AI-03**: Recommendation response validates against a strict Pydantic schema guaranteeing 8 structured game recommendations.
-- [ ] **AI-04**: Backend securely manages `GEMINI_API_KEY` on the server without exposing keys to web clients.
-- [ ] **AI-05**: Backend supports natural language conversational prompts (e.g., "story-rich RPGs with relaxing atmosphere").
+- [x] **AI-01**: Backend extracts and encapsulates Gemini recommendation logic from `Game_Finder.py` into a modular Python FastAPI service.
+- [x] **AI-02**: Recommendation service accepts genre, age rating, and difficulty parameters and returns structured recommendations.
+- [x] **AI-03**: Recommendation response validates against a strict Pydantic schema guaranteeing 8 structured game recommendations.
+- [x] **AI-04**: Backend securely manages `GEMINI_API_KEY` on the server without exposing keys to web clients.
+- [x] **AI-05**: Backend supports natural language conversational prompts (e.g., "story-rich RPGs with relaxing atmosphere").
 
 ### Game Metadata & Caching Service (META)
 
@@ -91,11 +91,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AI-01 | Phase 1 | Pending |
-| AI-02 | Phase 1 | Pending |
-| AI-03 | Phase 1 | Pending |
-| AI-04 | Phase 1 | Pending |
-| AI-05 | Phase 1 | Pending |
+| AI-01 | Phase 1 | Complete |
+| AI-02 | Phase 1 | Complete |
+| AI-03 | Phase 1 | Complete |
+| AI-04 | Phase 1 | Complete |
+| AI-05 | Phase 1 | Complete |
 | META-01 | Phase 2 | Pending |
 | META-02 | Phase 2 | Pending |
 | META-03 | Phase 2 | Pending |

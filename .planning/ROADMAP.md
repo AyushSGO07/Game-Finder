@@ -6,7 +6,7 @@ This roadmap guides the evolution of Game Finder from a Streamlit prototype into
 
 ## Phases
 
-- [ ] **Phase 1: Backend Extraction & Core AI Service** - Extract and modularize the Gemini recommendation pipeline into a FastAPI service.
+- [x] **Phase 1: Backend Extraction & Core AI Service** - Extract and modularize the Gemini recommendation pipeline into a FastAPI service.
 - [ ] **Phase 2: Game Metadata, Search & Caching Service** - Aggregate Steam Store metadata with fallbacks and implement multi-tier TTL caching.
 - [ ] **Phase 3: Database & Authentication** - Provision Supabase PostgreSQL schema, Row-Level Security, and JWT auth persistence.
 - [ ] **Phase 4: Frontend Shell & Store Discovery Hub** - Build Next.js 15 application shell, dark cinematic design system, Hero carousel, and categorized shelves.
@@ -29,9 +29,9 @@ This roadmap guides the evolution of Game Finder from a Streamlit prototype into
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Initialize FastAPI project structure, dependencies, configuration, and health endpoints.
-- [ ] 01-02: Extract LangChain Gemini recommendation service from `Game_Finder.py` with strict Pydantic output schemas.
-- [ ] 01-03: Implement recommendation API routes, error handling, and automated pytest test suites.
+- [x] 01-01: Initialize FastAPI project structure, dependencies, configuration, and health endpoints.
+- [x] 01-02: Extract LangChain Gemini recommendation service from `Game_Finder.py` with strict Pydantic output schemas.
+- [x] 01-03: Implement recommendation API routes, error handling, and automated pytest test suites.
 
 ### Phase 2: Game Metadata, Search & Caching Service
 **Goal**: Aggregate game artwork and details from Steam Store API with fallbacks and implement multi-tier caching to prevent rate limits.
@@ -138,7 +138,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend Extraction & Core AI Service | 0/3 | Not started | - |
+| 1. Backend Extraction & Core AI Service | 3/3 | Complete | 2026-10-06 |
 | 2. Game Metadata, Search & Caching Service | 0/2 | Not started | - |
 | 3. Database & Authentication | 0/2 | Not started | - |
 | 4. Frontend Shell & Store Discovery Hub | 0/3 | Not started | - |
