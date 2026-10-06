@@ -24,10 +24,10 @@ Requirements for the initial production release. Each requirement maps directly 
 
 ### Database & Authentication (AUTH)
 
-- [ ] **AUTH-01**: User can sign up, log in, and log out using Supabase Auth (email/password).
-- [ ] **AUTH-02**: User session persists across browser reloads via secure JWT tokens and Supabase SSR cookies.
-- [ ] **AUTH-03**: User profile manages gamer handle, avatar, bio, and gaming preferences in PostgreSQL.
-- [ ] **AUTH-04**: Database enforces Row-Level Security (RLS) on all user-owned records (libraries, reviews, ranked lists).
+- [x] **AUTH-01**: User can sign up, log in, and log out using Supabase Auth (email/password).
+- [x] **AUTH-02**: User session persists across browser reloads via secure JWT tokens and Supabase SSR cookies.
+- [x] **AUTH-03**: User profile manages gamer handle, avatar, bio, and gaming preferences in PostgreSQL.
+- [x] **AUTH-04**: Database enforces Row-Level Security (RLS) on all user-owned records (libraries, reviews, ranked lists).
 
 ### Frontend Shell & Store Discovery Hub (DISC)
 
@@ -100,10 +100,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | META-02 | Phase 2 | Complete |
 | META-03 | Phase 2 | Complete |
 | META-04 | Phase 2 | Complete |
-| AUTH-01 | Phase 3 | Pending |
-| AUTH-02 | Phase 3 | Pending |
-| AUTH-03 | Phase 3 | Pending |
-| AUTH-04 | Phase 3 | Pending |
+| AUTH-01 | Phase 3 | Complete |
+| AUTH-02 | Phase 3 | Complete |
+| AUTH-03 | Phase 3 | Complete |
+| AUTH-04 | Phase 3 | Complete |
 | DISC-01 | Phase 4 | Pending |
 | DISC-02 | Phase 4 | Pending |
 | DISC-03 | Phase 4 | Pending |

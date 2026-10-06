@@ -7,8 +7,8 @@ This roadmap guides the evolution of Game Finder from a Streamlit prototype into
 ## Phases
 
 - [x] **Phase 1: Backend Extraction & Core AI Service** - Extract and modularize the Gemini recommendation pipeline into a FastAPI service.
-- [ ] **Phase 2: Game Metadata, Search & Caching Service** - Aggregate Steam Store metadata with fallbacks and implement multi-tier TTL caching.
-- [ ] **Phase 3: Database & Authentication** - Provision Supabase PostgreSQL schema, Row-Level Security, and JWT auth persistence.
+- [x] **Phase 2: Game Metadata, Search & Caching Service** - Aggregate Steam Store metadata with fallbacks and implement multi-tier TTL caching.
+- [x] **Phase 3: Database & Authentication** - Provision Supabase PostgreSQL schema, Row-Level Security, and JWT auth persistence.
 - [ ] **Phase 4: Frontend Shell & Store Discovery Hub** - Build Next.js 15 application shell, dark cinematic design system, Hero carousel, and categorized shelves.
 - [ ] **Phase 5: Game Detail Pages & Rich Media** - Implement detailed game pages with trailer video player, screenshot gallery, and metadata sidebars.
 - [ ] **Phase 6: AI Game Finder Interactive Interface** - Create multi-step wizard and conversational prompt interface with 8-game recommendation cards.
@@ -75,11 +75,11 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 03-01: Define PostgreSQL schema migrations for profiles, user_games, ratings_reviews, and ranked_lists.
+- [x] 03-01: Define PostgreSQL schema migrations for profiles, user_games, ratings_reviews, and ranked_lists.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 03-02: Configure Supabase Auth client, SSR session cookie helpers, and RLS security policies.
+- [x] 03-02: Configure Supabase Auth client, SSR session cookie helpers, and RLS security policies.
 
 ### Phase 4: Frontend Shell & Store Discovery Hub
 
@@ -171,8 +171,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend Extraction & Core AI Service | 3/3 | Complete | 2026-10-06 |
-| 2. Game Metadata, Search & Caching Service | 0/2 | Not started | - |
-| 3. Database & Authentication | 0/2 | Not started | - |
+| 2. Game Metadata, Search & Caching Service | 2/2 | Complete | 2026-10-06 |
+| 3. Database & Authentication | 2/2 | Complete | 2026-10-07 |
 | 4. Frontend Shell & Store Discovery Hub | 0/3 | Not started | - |
 | 5. Game Detail Pages & Rich Media | 0/2 | Not started | - |
 | 6. AI Game Finder Interactive Interface | 0/2 | Not started | - |

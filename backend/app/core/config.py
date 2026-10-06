@@ -19,6 +19,12 @@ class Settings(BaseSettings):
         "http://localhost:8000",
     ]
 
+    # Supabase Configuration
+    SUPABASE_URL: str = ""
+    SUPABASE_ANON_KEY: str = ""
+    SUPABASE_SERVICE_ROLE_KEY: str = ""
+    SUPABASE_JWT_SECRET: str = "super-secret-jwt-key-for-dev-and-testing-min-32-chars"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

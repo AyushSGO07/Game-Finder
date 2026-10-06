@@ -17,6 +17,23 @@ from backend.app.schemas.game import (
     SteamSearchResultItem,
 )
 
+from backend.app.schemas.auth import (
+    UserRegisterRequest,
+    UserLoginRequest,
+    UserInfo,
+    TokenResponse,
+    UserProfileResponse,
+    UserProfileUpdate,
+    UserLibraryItemCreate,
+    UserLibraryItemUpdate,
+    UserLibraryItemResponse,
+    RankedPosition,
+    RankedListUpdate,
+    RankedListResponse,
+    ReviewCreateRequest,
+    ReviewResponse,
+)
+
 __all__ = [
     "GameRecommendation",
     "RecommendationRequest",
@@ -30,4 +47,18 @@ __all__ = [
     "ScreenshotItem",
     "SteamSearchResult",
     "SteamSearchResultItem",
+    "UserRegisterRequest",
+    "UserLoginRequest",
+    "UserInfo",
+    "TokenResponse",
+    "UserProfileResponse",
+    "UserProfileUpdate",
+    "UserLibraryItemCreate",
+    "UserLibraryItemUpdate",
+    "UserLibraryItemResponse",
+    "RankedPosition",
+    "RankedListUpdate",
+    "RankedListResponse",
+    "ReviewCreateRequest",
+    "ReviewResponse",
 ]

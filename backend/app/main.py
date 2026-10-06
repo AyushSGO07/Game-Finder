@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.core.config import settings
-from backend.app.api.v1 import recommendations, games
+from backend.app.api.v1 import recommendations, games, auth, library
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -21,6 +21,8 @@ app.add_middleware(
 # Register API routers
 app.include_router(recommendations.router, prefix=settings.API_V1_STR)
 app.include_router(games.router, prefix=f"{settings.API_V1_STR}/games", tags=["games"])
+app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
+app.include_router(library.router, prefix=f"{settings.API_V1_STR}/me", tags=["user-library"])
 
 
 
