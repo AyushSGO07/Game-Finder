@@ -7,6 +7,9 @@ import {
   RecommendationRequest,
   EnrichedRecommendation,
   GameReview,
+  RankedPosition,
+  RankedList,
+  GotyYearArchive,
 } from '@/types/game';
 import {
   MOCK_HERO_SLIDES,
@@ -15,6 +18,7 @@ import {
   getDefaultMockGameDetail,
   generateMockRecommendations,
   MOCK_GAME_REVIEWS,
+  MOCK_GOTY_ARCHIVE,
 } from './mockData';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
@@ -296,5 +300,103 @@ export async function submitGameReview(data: {
   }
   MOCK_GAME_REVIEWS[strId].unshift(mockCreated);
   return mockCreated;
+}
+
+export async function fetchUserRankings(): Promise<RankedList> {
+  try {
+    const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.positions)) {
+        return data;
+      }
+    }
+  } catch {
+    // Network fallback
+  }
+
+  // Fallback to localStorage if present
+  if (typeof window !== 'undefined') {
+    try {
+      const local = localStorage.getItem('game_finder_user_rankings');
+      if (local) {
+        return JSON.parse(local);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  return {
+    id: 'rank-default',
+    user_id: 'default-user',
+    title: 'My All-Time Top 10',
+    positions: [],
+  };
+}
+
+export async function saveUserRankings(
+  title: string,
+  positions: RankedPosition[]
+): Promise<RankedList> {
+  const payload = {
+    title,
+    positions: positions.map((p, idx) => ({
+      game_id: String(p.game_id),
+      rank: idx + 1,
+      title: p.title || '',
+      cover_url: p.cover_url || '',
+    })),
+  };
+
+  try {
+    const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      const saved = await res.json();
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('game_finder_user_rankings', JSON.stringify(saved));
+      }
+      return saved;
+    }
+  } catch {
+    // Network fallback
+  }
+
+  const result: RankedList = {
+    id: `rank-${Date.now()}`,
+    user_id: 'local-user',
+    title,
+    positions: payload.positions,
+    updated_at: new Date().toISOString(),
+  };
+
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('game_finder_user_rankings', JSON.stringify(result));
+    } catch {
+      // ignore
+    }
+  }
+
+  return result;
+}
+
+export async function fetchGotyArchive(): Promise<GotyYearArchive[]> {
+  try {
+    const res = await fetchWithTimeout(`${BASE_URL}/games/goty`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
+    }
+  } catch {
+    // Network fallback
+  }
+
+  return MOCK_GOTY_ARCHIVE;
 }
 

@@ -104,3 +104,46 @@ class BatchEnrichResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     games: List[GameCard] = Field(default_factory=list, description="Enriched game cards")
+
+
+class GotyNominee(BaseModel):
+    """GOTY Nominee model."""
+    model_config = ConfigDict(from_attributes=True)
+
+    game_id: str
+    title: str
+    cover_url: Optional[str] = None
+    developer: Optional[str] = None
+    publisher: Optional[str] = None
+    genres: List[str] = Field(default_factory=list)
+    steam_appid: Optional[int] = None
+
+
+class GotyWinner(BaseModel):
+    """GOTY Winner model."""
+    model_config = ConfigDict(from_attributes=True)
+
+    game_id: str
+    title: str
+    slug: Optional[str] = None
+    cover_url: Optional[str] = None
+    hero_image: Optional[str] = None
+    developer: Optional[str] = None
+    publisher: Optional[str] = None
+    release_date: Optional[str] = None
+    genres: List[str] = Field(default_factory=list)
+    description: Optional[str] = None
+    award_rationale: Optional[str] = None
+    steam_appid: Optional[int] = None
+    steam_url: Optional[str] = None
+
+
+class GotyYearArchive(BaseModel):
+    """GOTY annual archive model."""
+    model_config = ConfigDict(from_attributes=True)
+
+    year: int
+    award_name: str = "Game of the Year"
+    source: str = "The Game Awards"
+    winner: GotyWinner
+    nominees: List[GotyNominee] = Field(default_factory=list)

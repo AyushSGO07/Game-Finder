@@ -201,4 +201,51 @@ export interface GameReview {
   updated_at?: string | null;
 }
 
+export interface RankedPosition {
+  game_id: string;
+  rank: number;
+  title?: string;
+  cover_url?: string;
+}
 
+export interface RankedList {
+  id: string;
+  user_id: string;
+  title: string;
+  positions: RankedPosition[];
+  created_at?: string;
+  updated_at?: string;
+}
+export interface GotyNominee {
+  game_id: string;
+  title: string;
+  cover_url?: string;
+  developer?: string;
+  publisher?: string;
+  genres?: string[];
+  steam_appid?: number;
+}
+
+export interface GotyWinner {
+  game_id: string;
+  title: string;
+  slug?: string;
+  cover_url?: string;
+  hero_image?: string;
+  developer?: string;
+  publisher?: string;
+  release_date?: string;
+  genres?: string[];
+  description?: string;
+  award_rationale?: string;
+  steam_appid?: number;
+  steam_url?: string;
+}
+
+export interface GotyYearArchive {
+  year: number;
+  award_name: string;
+  source: string;
+  winner: GotyWinner;
+  nominees: GotyNominee[];
+}

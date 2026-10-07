@@ -1,7 +1,7 @@
 """API routes for game metadata, search, and enrichment."""
 
 import logging
-from typing import Optional
+from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query, status
 
 from backend.app.schemas.game import (
@@ -9,8 +9,10 @@ from backend.app.schemas.game import (
     BatchEnrichResponse,
     GameDetail,
     GameSearchResponse,
+    GotyYearArchive,
 )
 from backend.app.services.game_service import game_service
+from backend.app.services.supabase_service import supabase_service
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +49,26 @@ async def search_games(
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Unable to execute game search at this time",
+        )
+
+
+@router.get(
+    "/goty",
+    response_model=List[GotyYearArchive],
+    status_code=status.HTTP_200_OK,
+    summary="Get Game of the Year (GOTY) historical archive",
+    description="Retrieve curated annual winners and runner-up nominees from 2014 to present.",
+)
+async def get_goty_archive() -> List[GotyYearArchive]:
+    """Retrieve GOTY winners and nominees archive."""
+    try:
+        archive = supabase_service.get_goty_archive()
+        return [GotyYearArchive(**entry) for entry in archive]
+    except Exception as exc:
+        logger.error("Error retrieving GOTY archive: %s", exc)
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Unable to fetch GOTY archive at this time",
         )
 
 

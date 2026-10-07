@@ -170,9 +170,9 @@ Plans:
 
 Plans:
 
-- [ ] 07-01: Implement personal library views with status filters (Wishlist, Backlog, Playing, Completed) and optimistic shelving.
-- [ ] 07-02: Build user rating and markdown review system with aggregate score displays.
-- [ ] 07-03: Implement personal Top 10 ranked list builder and interactive Game of the Year archive (2014–present).
+- [x] 07-01: Implement personal library views with status filters (Wishlist, Backlog, Playing, Completed) and optimistic shelving.
+- [x] 07-02: Build user rating and markdown review system with aggregate score displays.
+- [x] 07-03: Implement personal Top 10 ranked list builder and interactive Game of the Year archive (2014–present).
 
 ## Progress
 
@@ -184,10 +184,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Backend Extraction & Core AI Service | 3/3 | Complete | 2026-10-06 |
 | 2. Game Metadata, Search & Caching Service | 2/2 | Complete | 2026-10-06 |
 | 3. Database & Authentication | 2/2 | Complete | 2026-10-07 |
-| 4. Frontend Shell & Store Discovery Hub | 0/3 | Not started | - |
-| 5. Game Detail Pages & Rich Media | 0/2 | Not started | - |
-| 6. AI Game Finder Interactive Interface | 0/2 | Not started | - |
-| 7. Personal Library, Reviews & Ranked Lists | 0/3 | Not started | - |
+| 4. Frontend Shell & Store Discovery Hub | 3/3 | Complete | 2026-10-07 |
+| 5. Game Detail Pages & Rich Media | 2/2 | Complete | 2026-10-07 |
+| 6. AI Game Finder Interactive Interface | 2/2 | Complete | 2026-10-07 |
+| 7. Personal Library, Reviews & Ranked Lists | 3/3 | Complete | 2026-10-07 |
 
 ---
 *Roadmap generated: 2026-10-06*

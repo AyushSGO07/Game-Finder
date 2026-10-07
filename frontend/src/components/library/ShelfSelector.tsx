@@ -67,7 +67,8 @@ interface GameLike {
 }
 
 export interface ShelfSelectorProps {
-  game: GameLike;
+  game?: GameLike;
+  gameId?: string | number;
   currentStatus?: ShelfStatus | null;
   onStatusChange?: (status: ShelfStatus | null) => void;
   size?: 'sm' | 'md' | 'lg';
@@ -76,6 +77,7 @@ export interface ShelfSelectorProps {
 
 export default function ShelfSelector({
   game,
+  gameId,
   currentStatus: propStatus,
   onStatusChange,
   size = 'md',
@@ -85,7 +87,8 @@ export default function ShelfSelector({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const libraryItem = getGameItem(game.id);
+  const resolvedGame: GameLike = game || { id: gameId || '' };
+  const libraryItem = resolvedGame.id ? getGameItem(resolvedGame.id) : undefined;
   const effectiveStatus = propStatus !== undefined ? propStatus : libraryItem?.status || null;
 
   // Close when clicking outside
@@ -110,10 +113,10 @@ export default function ShelfSelector({
 
     if (opt.status === 'remove') {
       onStatusChange?.(null);
-      await removeGame(game.id);
+      await removeGame(resolvedGame.id);
     } else {
       onStatusChange?.(opt.status as ShelfStatus);
-      await shelveGame(game, opt.status as ShelfStatus);
+      await shelveGame(resolvedGame, opt.status as ShelfStatus);
     }
   };
 

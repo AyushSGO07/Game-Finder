@@ -15,6 +15,9 @@ from backend.app.schemas.game import (
     ScreenshotItem,
     SteamSearchResult,
     SteamSearchResultItem,
+    GotyNominee,
+    GotyWinner,
+    GotyYearArchive,
 )
 
 from backend.app.schemas.auth import (
@@ -47,6 +50,9 @@ __all__ = [
     "ScreenshotItem",
     "SteamSearchResult",
     "SteamSearchResultItem",
+    "GotyNominee",
+    "GotyWinner",
+    "GotyYearArchive",
     "UserRegisterRequest",
     "UserLoginRequest",
     "UserInfo",

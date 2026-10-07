@@ -18,6 +18,7 @@ import { ShelfStatus } from '@/types/game';
 import { useLibrary } from '@/context/LibraryContext';
 import LibraryFilterTabs from '@/components/library/LibraryFilterTabs';
 import LibraryGameCard from '@/components/library/LibraryGameCard';
+import Top10Builder from '@/components/library/Top10Builder';
 
 type SortOption = 'recent' | 'title' | 'rating' | 'playtime';
 
@@ -238,17 +239,9 @@ export default function LibraryPage() {
           )}
         </>
       ) : (
-        /* Top 10 View Container (wired up in Plan 07-03) */
+        /* Top 10 View Container */
         <div id="top-10-container" className="space-y-6">
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md">
-            <div className="flex items-center gap-3 mb-2">
-              <Trophy className="w-6 h-6 text-amber-400" />
-              <h2 className="text-2xl font-bold text-white">All-Time Top 10 Rankings</h2>
-            </div>
-            <p className="text-sm text-slate-400">
-              Curate and reorder your personal Top 10 masterpiece games. (Configurable in Phase 7 Plan 03).
-            </p>
-          </div>
+          <Top10Builder />
         </div>
       )}
     </div>
