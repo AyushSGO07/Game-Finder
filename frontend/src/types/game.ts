@@ -167,3 +167,24 @@ export const MOOD_OPTIONS = [
   'Tactical & Strategic',
   'Pure Fun',
 ] as const;
+
+export type ShelfStatus = 'wishlist' | 'backlog' | 'playing' | 'completed' | 'dropped';
+
+export interface UserLibraryItem {
+  id: string;
+  user_id: string;
+  game_id: string;
+  is_favorite: boolean;
+  is_wishlisted: boolean;
+  status: ShelfStatus;
+  personal_rating?: number | null;
+  personal_rank?: number | null;
+  playtime_hours: number;
+  notes?: string | null;
+  game_title?: string;
+  game_cover_url?: string;
+  game_slug?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+

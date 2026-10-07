@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import RecommendationCard from '../components/finder/RecommendationCard';
 import { EnrichedRecommendation } from '../types/game';
+import { LibraryProvider } from '@/context/LibraryContext';
 
 const mockRec: EnrichedRecommendation = {
   id: 1245620,
@@ -17,7 +18,11 @@ const mockRec: EnrichedRecommendation = {
 
 describe('RecommendationCard Component', () => {
   it('renders game title, match index, attributes, and AI rationale callout', () => {
-    render(<RecommendationCard recommendation={mockRec} index={0} />);
+    render(
+      <LibraryProvider>
+        <RecommendationCard recommendation={mockRec} index={0} />
+      </LibraryProvider>
+    );
 
     expect(screen.getByText('ELDEN RING')).toBeInTheDocument();
     expect(screen.getByText('#1 Match')).toBeInTheDocument();
@@ -31,12 +36,23 @@ describe('RecommendationCard Component', () => {
 
   it('handles quick-save library button toggle', () => {
     const onSave = vi.fn();
-    render(<RecommendationCard recommendation={mockRec} index={0} onSave={onSave} />);
+    const unsavedRec: EnrichedRecommendation = {
+      ...mockRec,
+      id: 888999,
+      steam_appid: 888999,
+      name: 'Unsaved Mystery Game',
+    };
+    render(
+      <LibraryProvider>
+        <RecommendationCard recommendation={unsavedRec} index={0} onSave={onSave} />
+      </LibraryProvider>
+    );
 
     const saveBtn = screen.getByRole('button', { name: /Save to Library/i });
     fireEvent.click(saveBtn);
 
-    expect(onSave).toHaveBeenCalledWith(mockRec);
+    expect(onSave).toHaveBeenCalledWith(unsavedRec);
     expect(screen.getByRole('button', { name: /Saved/i })).toBeInTheDocument();
   });
 });
+

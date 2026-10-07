@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Star, Calendar, Bookmark, Heart, ExternalLink, ShieldCheck } from 'lucide-react';
+import React from 'react';
+import { Star, Calendar, Heart, ExternalLink, ShieldCheck } from 'lucide-react';
 import { GameDetail } from '@/types/game';
+import ShelfSelector from '@/components/library/ShelfSelector';
+import { useLibrary } from '@/context/LibraryContext';
 
 interface GameHeaderProps {
   game: GameDetail;
@@ -11,17 +13,13 @@ interface GameHeaderProps {
 }
 
 export default function GameHeader({ game, onAddLibrary, onFavorite }: GameHeaderProps) {
-  const [isFavorited, setIsFavorited] = useState(false);
-  const [isInLibrary, setIsInLibrary] = useState(false);
+  const { getGameItem, toggleFavorite } = useLibrary();
+  const libraryItem = getGameItem(game.id);
+  const isFavorited = !!libraryItem?.is_favorite;
 
-  const handleFavorite = () => {
-    setIsFavorited((prev) => !prev);
+  const handleFavorite = async () => {
     onFavorite?.(game);
-  };
-
-  const handleLibrary = () => {
-    setIsInLibrary((prev) => !prev);
-    onAddLibrary?.(game);
+    await toggleFavorite(game.id);
   };
 
   return (
@@ -77,19 +75,10 @@ export default function GameHeader({ game, onAddLibrary, onFavorite }: GameHeade
 
       {/* Right: Quick Action CTAs */}
       <div className="flex flex-wrap items-center gap-3 shrink-0">
-        <button
-          type="button"
-          onClick={handleLibrary}
-          aria-label={isInLibrary ? 'In Library' : 'Add to Library'}
-          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 ${
-            isInLibrary
-              ? 'bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 shadow-emerald-500/10'
-              : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25 hover:shadow-indigo-600/40'
-          }`}
-        >
-          <Bookmark className={`w-4 h-4 ${isInLibrary ? 'fill-emerald-400' : ''}`} />
-          <span>{isInLibrary ? 'In Library' : 'Add to Library'}</span>
-        </button>
+        <ShelfSelector
+          game={game}
+          onStatusChange={() => onAddLibrary?.(game)}
+        />
 
         <button
           type="button"

@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import MobileNav from './MobileNav';
 import SearchModal from './SearchModal';
 import Footer from './Footer';
+import { LibraryProvider } from '@/context/LibraryContext';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -15,7 +16,8 @@ export default function AppShell({ children }: AppShellProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div id="app-root" className="flex flex-col min-h-screen">
+    <LibraryProvider>
+      <div id="app-root" className="flex flex-col min-h-screen">
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}
         onToggleMobileMenu={() => setIsMobileMenuOpen((prev) => !prev)}
@@ -34,5 +36,6 @@ export default function AppShell({ children }: AppShellProps) {
       </main>
       <Footer />
     </div>
+    </LibraryProvider>
   );
 }

@@ -29,11 +29,14 @@ describe('GameHeader and GameSidebar Components', () => {
       />
     );
 
-    const libraryButton = screen.getByRole('button', { name: /Add to Library/i });
-    fireEvent.click(libraryButton);
+    const shelfButton = screen.getByRole('button', { name: /Shelf/i });
+    fireEvent.click(shelfButton);
+
+    const completedOption = screen.getByRole('menuitem', { name: /Completed/i });
+    fireEvent.click(completedOption);
     expect(handleAddLibrary).toHaveBeenCalledWith(eldenRing);
 
-    const favButton = screen.getByRole('button', { name: /Favorite game/i });
+    const favButton = screen.getByRole('button', { name: /Favorit/i });
     fireEvent.click(favButton);
     expect(handleFavorite).toHaveBeenCalledWith(eldenRing);
   });

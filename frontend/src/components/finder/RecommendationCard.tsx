@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, Bookmark, Check, ArrowUpRight, Star } from 'lucide-react';
 import { EnrichedRecommendation } from '@/types/game';
+import { useLibrary } from '@/context/LibraryContext';
 
 interface RecommendationCardProps {
   recommendation: EnrichedRecommendation;
@@ -17,20 +18,31 @@ export default function RecommendationCard({
   index,
   onSave,
 }: RecommendationCardProps) {
-  const [isSaved, setIsSaved] = useState(false);
+  const { getGameItem, shelveGame } = useLibrary();
+  const gameId = recommendation.steam_appid || recommendation.id || index + 1;
+  const libraryItem = getGameItem(gameId);
+  const isSaved = !!libraryItem;
 
-  const handleSave = (e: React.MouseEvent) => {
+  const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsSaved((prev) => !prev);
     onSave?.(recommendation);
+    if (!isSaved) {
+      await shelveGame(
+        {
+          id: gameId,
+          title: recommendation.name,
+          header_image: recommendation.header_image,
+          capsule_image: recommendation.capsule_image,
+        },
+        'wishlist'
+      );
+    }
   };
 
   const imageSrc =
     recommendation.header_image ||
     recommendation.capsule_image ||
     recommendation.hero_image;
-
-  const gameId = recommendation.steam_appid || recommendation.id || index + 1;
 
   return (
     <article
