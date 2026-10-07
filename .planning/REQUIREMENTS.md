@@ -53,11 +53,11 @@ Requirements for the initial production release. Each requirement maps directly 
 
 ### Personal Library, Reviews & Ranked Lists (LIB)
 
-- [ ] **LIB-01**: User can save games to status shelves: Wishlist, Backlog, Currently Playing, and Completed/Played.
-- [ ] **LIB-02**: Optimistic UI updates ensure instant library actions with background server sync and error rollback.
-- [ ] **LIB-03**: User can assign personal star ratings (1-10) and write markdown reviews for games.
-- [ ] **LIB-04**: User can build and curate a personal ranked Top 10 games list.
-- [ ] **LIB-05**: Curated Game of the Year (GOTY) interactive archive displaying winners and runner-ups from 2014 to present.
+- [x] **LIB-01**: User can save games to status shelves: Wishlist, Backlog, Currently Playing, and Completed/Played.
+- [x] **LIB-02**: Optimistic UI updates ensure instant library actions with background server sync and error rollback.
+- [x] **LIB-03**: User can assign personal star ratings (1-10) and write markdown reviews for games.
+- [x] **LIB-04**: User can build and curate a personal ranked Top 10 games list.
+- [x] **LIB-05**: Curated Game of the Year (GOTY) interactive archive displaying winners and runner-ups from 2014 to present.
 
 ## v2 Requirements
 
@@ -117,17 +117,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FIND-02 | Phase 6 | Complete |
 | FIND-03 | Phase 6 | Complete |
 | FIND-04 | Phase 6 | Complete |
-| LIB-01 | Phase 7 | Pending |
-| LIB-02 | Phase 7 | Pending |
-| LIB-03 | Phase 7 | Pending |
-| LIB-04 | Phase 7 | Pending |
-| LIB-05 | Phase 7 | Pending |
+| LIB-01 | Phase 7 | Complete |
+| LIB-02 | Phase 7 | Complete |
+| LIB-03 | Phase 7 | Complete |
+| LIB-04 | Phase 7 | Complete |
+| LIB-05 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 31 total
 - Mapped to phases: 31
+- Completed: 31 / 31 (100%) ✓
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-10-06*  
-*Last updated: 2026-10-06 after initialization*
+*Last updated: 2026-10-07 after Phase 7 completion*
