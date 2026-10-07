@@ -23,6 +23,7 @@ app.include_router(recommendations.router, prefix=settings.API_V1_STR)
 app.include_router(games.router, prefix=f"{settings.API_V1_STR}/games", tags=["games"])
 app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
 app.include_router(library.router, prefix=f"{settings.API_V1_STR}/me", tags=["user-library"])
+app.include_router(library.router, prefix=f"{settings.API_V1_STR}/library", tags=["library"])
 
 
 

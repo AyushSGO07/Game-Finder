@@ -6,6 +6,7 @@ import {
   EnrichedRecommendation,
   RecommendationRequest,
   UserLibraryItem,
+  GameReview,
 } from '@/types/game';
 
 export const MOCK_HERO_SLIDES: HeroSlide[] = [
@@ -1011,4 +1012,45 @@ export const MOCK_INITIAL_LIBRARY: Record<string, UserLibraryItem> = {
     updated_at: '2026-09-22T15:00:00Z',
   },
 };
+
+export const MOCK_GAME_REVIEWS: Record<string, GameReview[]> = {
+  '1245620': [
+    {
+      id: 'rev-1',
+      user_id: 'user-tarnished',
+      game_id: '1245620',
+      rating: 10,
+      title: 'A transcendent open-world benchmark',
+      body: 'FromSoftware has achieved the pinnacle of exploration and combat synergy. The Lands Between rewards every single detour with breathtaking vistas, daunting dungeon architecture, and deep lore.\n\n### Highlights:\n- **World Design**: Flawless sense of scale.\n- **Combat Variety**: Endless build possibilities.\n- **Bosses**: Unforgettable encounters like Malenia and Radahn.',
+      username: 'EldenLord99',
+      avatar_url: 'https://ui-avatars.com/api/?name=EldenLord&background=4f46e5&color=fff',
+      created_at: '2026-09-10T12:00:00Z',
+    },
+    {
+      id: 'rev-2',
+      user_id: 'user-alex',
+      game_id: '1245620',
+      rating: 9,
+      title: 'Demanding, beautiful, and vast',
+      body: 'The boss battles push your reflexes to the limit. Some late-game scaling is fierce, but summoning and spirit ashes give every build a viable path forward.\n\n> "A once-in-a-generation achievement in dark fantasy."',
+      username: 'SoulsVeteran',
+      avatar_url: 'https://ui-avatars.com/api/?name=SoulsVeteran&background=0d9488&color=fff',
+      created_at: '2026-09-22T14:30:00Z',
+    },
+  ],
+  '1086940': [
+    {
+      id: 'rev-3',
+      user_id: 'user-shadowheart',
+      game_id: '1086940',
+      rating: 10,
+      title: 'Roleplaying perfection with infinite reactivity',
+      body: 'Every quest has five solutions you never expected. The companions feel alive, the turn-based tactical combat is deeply rewarding, and Act 3 is an unbelievable accomplishment.',
+      username: 'TavPaladin',
+      avatar_url: 'https://ui-avatars.com/api/?name=TavPaladin&background=d97706&color=fff',
+      created_at: '2026-09-15T18:00:00Z',
+    },
+  ],
+};
+
 

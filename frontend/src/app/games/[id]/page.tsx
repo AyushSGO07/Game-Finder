@@ -2,11 +2,12 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Gamepad2, Info } from 'lucide-react';
-import { fetchGameDetails } from '@/lib/api';
+import { fetchGameDetails, fetchGameReviews } from '@/lib/api';
 import GameHeader from '@/components/game/GameHeader';
 import GameSidebar from '@/components/game/GameSidebar';
 import MediaGallery from '@/components/game/MediaGallery';
 import SystemRequirements from '@/components/game/SystemRequirements';
+import GameReviewsSection from '@/components/reviews/GameReviewsSection';
 
 interface GamePageProps {
   params: Promise<{ id: string }>;
@@ -36,6 +37,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
 export default async function GameDetailPage({ params }: GamePageProps) {
   const { id } = await params;
   const game = await fetchGameDetails(id);
+  const reviews = await fetchGameReviews(id);
 
   if (!game) {
     return (
@@ -108,6 +110,9 @@ export default async function GameDetailPage({ params }: GamePageProps) {
 
           {/* PC System Requirements */}
           <SystemRequirements pcRequirements={game.pc_requirements} />
+
+          {/* Ratings & Community Reviews */}
+          <GameReviewsSection gameId={id} initialReviews={reviews} />
         </div>
 
         {/* Right Column (4 cols): Metadata Sidebar */}

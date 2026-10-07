@@ -8,6 +8,8 @@ from backend.app.schemas.auth import (
     UserLibraryItemResponse,
     RankedListUpdate,
     RankedListResponse,
+    ReviewCreateRequest,
+    ReviewResponse,
 )
 from backend.app.services.supabase_service import supabase_service
 from backend.app.core.auth import get_current_user, AuthenticatedUser
@@ -155,3 +157,38 @@ async def update_my_rankings(
         [p.model_dump() for p in payload.positions]
     )
     return RankedListResponse(**saved)
+
+
+@router.get(
+    "/reviews/{game_id}",
+    response_model=List[ReviewResponse],
+    summary="Get game reviews"
+)
+async def get_game_reviews(game_id: str):
+    """Retrieve community and user reviews for a game."""
+    reviews = supabase_service.get_game_reviews(game_id)
+    return [ReviewResponse(**r) for r in reviews]
+
+
+@router.post(
+    "/reviews",
+    response_model=ReviewResponse,
+    summary="Create or update game review"
+)
+async def submit_game_review(
+    payload: ReviewCreateRequest,
+    current_user: AuthenticatedUser = Depends(get_current_user)
+):
+    """Submit or update personal star rating and markdown review."""
+    profile = supabase_service.get_profile(current_user.id) or {}
+    review = supabase_service.create_or_update_review(
+        user_id=current_user.id,
+        game_id=payload.game_id,
+        rating=payload.rating,
+        title=payload.title,
+        body=payload.body,
+        username=profile.get("username", current_user.email.split("@")[0]),
+        avatar_url=profile.get("avatar_url")
+    )
+    return ReviewResponse(**review)
+

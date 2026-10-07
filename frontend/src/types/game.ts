@@ -188,3 +188,17 @@ export interface UserLibraryItem {
   updated_at?: string;
 }
 
+export interface GameReview {
+  id: string;
+  user_id: string;
+  game_id: string;
+  rating: number;
+  title?: string | null;
+  body: string;
+  username?: string | null;
+  avatar_url?: string | null;
+  created_at?: string | null;
+  updated_at?: string | null;
+}
+
+

@@ -6,6 +6,7 @@ import {
   GameDetail,
   RecommendationRequest,
   EnrichedRecommendation,
+  GameReview,
 } from '@/types/game';
 import {
   MOCK_HERO_SLIDES,
@@ -13,6 +14,7 @@ import {
   MOCK_GENRE_TILES,
   getDefaultMockGameDetail,
   generateMockRecommendations,
+  MOCK_GAME_REVIEWS,
 } from './mockData';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
@@ -230,3 +232,69 @@ export async function fetchRecommendations(
 
   return generateMockRecommendations(request);
 }
+
+export async function fetchGameReviews(gameId: string | number): Promise<GameReview[]> {
+  const strId = String(gameId).trim();
+  try {
+    const res = await fetchWithTimeout(`${BASE_URL}/library/reviews/${strId}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+  } catch {
+    // Network fallback
+  }
+
+  return MOCK_GAME_REVIEWS[strId] || [];
+}
+
+export async function submitGameReview(data: {
+  game_id: string | number;
+  rating: number;
+  title?: string;
+  body: string;
+}): Promise<GameReview> {
+  const strId = String(data.game_id);
+  const payload = {
+    game_id: strId,
+    rating: data.rating,
+    title: data.title || undefined,
+    body: data.body,
+  };
+
+  try {
+    const res = await fetchWithTimeout(`${BASE_URL}/library/reviews`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch {
+    // Fallback below
+  }
+
+  const now = new Date().toISOString();
+  const mockCreated: GameReview = {
+    id: `rev-client-${Date.now()}`,
+    user_id: 'user-client',
+    game_id: strId,
+    rating: data.rating,
+    title: data.title || null,
+    body: data.body,
+    username: 'Gamer',
+    avatar_url: 'https://ui-avatars.com/api/?name=Gamer&background=1e293b&color=cbd5e1',
+    created_at: now,
+    updated_at: now,
+  };
+
+  // Cache locally in mock data
+  if (!MOCK_GAME_REVIEWS[strId]) {
+    MOCK_GAME_REVIEWS[strId] = [];
+  }
+  MOCK_GAME_REVIEWS[strId].unshift(mockCreated);
+  return mockCreated;
+}
+

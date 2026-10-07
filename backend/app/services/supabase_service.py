@@ -31,7 +31,48 @@ class SupabaseService:
         self._mock_profiles: Dict[str, Dict[str, Any]] = {}
         self._mock_libraries: Dict[str, Dict[str, Dict[str, Any]]] = {}  # user_id -> {game_id -> item}
         self._mock_rankings: Dict[str, Dict[str, Any]] = {}  # user_id -> ranking data
-        self._mock_reviews: Dict[str, List[Dict[str, Any]]] = {}  # game_id -> list of reviews
+        self._mock_reviews: Dict[str, List[Dict[str, Any]]] = {
+            "1245620": [
+                {
+                    "id": "rev-1",
+                    "user_id": "user-tarnished",
+                    "game_id": "1245620",
+                    "rating": 10,
+                    "title": "A transcendent open-world benchmark",
+                    "body": "FromSoftware has achieved the pinnacle of exploration and combat synergy. The Lands Between rewards every single detour with breathtaking vistas, daunting dungeon architecture, and deep lore.",
+                    "username": "EldenLord99",
+                    "avatar_url": "https://ui-avatars.com/api/?name=EldenLord&background=4f46e5&color=fff",
+                    "created_at": "2026-09-10T12:00:00Z",
+                    "updated_at": "2026-09-10T12:00:00Z",
+                },
+                {
+                    "id": "rev-2",
+                    "user_id": "user-alex",
+                    "game_id": "1245620",
+                    "rating": 9,
+                    "title": "Demanding, beautiful, and vast",
+                    "body": "The boss battles push your reflexes to the limit. Some late-game scaling is fierce, but summoning and spirit ashes give every build a viable path forward.",
+                    "username": "SoulsVeteran",
+                    "avatar_url": "https://ui-avatars.com/api/?name=SoulsVeteran&background=0d9488&color=fff",
+                    "created_at": "2026-09-22T14:30:00Z",
+                    "updated_at": "2026-09-22T14:30:00Z",
+                }
+            ],
+            "1086940": [
+                {
+                    "id": "rev-3",
+                    "user_id": "user-shadowheart",
+                    "game_id": "1086940",
+                    "rating": 10,
+                    "title": "Roleplaying perfection with infinite reactivity",
+                    "body": "Every quest has five solutions you never expected. The companions feel alive, the turn-based tactical combat is deeply rewarding, and Act 3 is an unbelievable accomplishment.",
+                    "username": "TavPaladin",
+                    "avatar_url": "https://ui-avatars.com/api/?name=TavPaladin&background=d97706&color=fff",
+                    "created_at": "2026-09-15T18:00:00Z",
+                    "updated_at": "2026-09-15T18:00:00Z",
+                }
+            ]
+        }
 
     def is_configured(self) -> bool:
         """Returns True if live Supabase credentials are configured."""
@@ -310,6 +351,88 @@ class SupabaseService:
         self._mock_rankings[user_id] = record
         return record
 
+    def get_game_reviews(self, game_id: str) -> List[Dict[str, Any]]:
+        """Retrieve reviews for a game."""
+        str_id = str(game_id)
+        if self.is_configured():
+            try:
+                res = self.client.table("reviews").select("*, profiles(username, avatar_url)").eq("game_id", str_id).order("created_at", desc=True).execute()
+                if res.data:
+                    results = []
+                    for r in res.data:
+                        profile = r.get("profiles") or {}
+                        results.append({
+                            "id": r.get("id"),
+                            "user_id": r.get("user_id"),
+                            "game_id": r.get("game_id"),
+                            "rating": r.get("rating"),
+                            "title": r.get("title"),
+                            "body": r.get("body"),
+                            "username": profile.get("username", "Gamer"),
+                            "avatar_url": profile.get("avatar_url"),
+                            "created_at": r.get("created_at"),
+                            "updated_at": r.get("updated_at"),
+                        })
+                    return results
+            except Exception:
+                pass
+
+        return self._mock_reviews.get(str_id, [])
+
+    def create_or_update_review(
+        self,
+        user_id: str,
+        game_id: str,
+        rating: int,
+        title: Optional[str],
+        body: str,
+        username: Optional[str] = None,
+        avatar_url: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Create or update a game review."""
+        str_id = str(game_id)
+        now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        record = {
+            "id": str(uuid.uuid4()),
+            "user_id": user_id,
+            "game_id": str_id,
+            "rating": rating,
+            "title": title,
+            "body": body,
+            "username": username or "Gamer",
+            "avatar_url": avatar_url or f"https://ui-avatars.com/api/?name={username or 'Gamer'}&background=1e293b&color=cbd5e1",
+            "created_at": now,
+            "updated_at": now,
+        }
+
+        if self.is_configured():
+            try:
+                payload = {
+                    "user_id": user_id,
+                    "game_id": str_id,
+                    "rating": rating,
+                    "title": title,
+                    "body": body,
+                    "updated_at": now
+                }
+                res = self.client.table("reviews").upsert(payload).execute()
+                if res.data:
+                    return {**record, **res.data[0]}
+            except Exception as e:
+                raise ValueError(str(e))
+
+        reviews = self._mock_reviews.setdefault(str_id, [])
+        for i, existing in enumerate(reviews):
+            if existing.get("user_id") == user_id:
+                record["id"] = existing["id"]
+                record["created_at"] = existing.get("created_at", now)
+                reviews[i] = record
+                return record
+
+        reviews.insert(0, record)
+        return record
+
 
 # Global singleton instance
 supabase_service = SupabaseService()
+
