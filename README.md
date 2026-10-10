@@ -1,4 +1,4 @@
-# 🎮 Game Finder
+# Game Finder
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 ---
 
-## 🌟 Overview
+## Overview
 
 **Game Finder** is a digital store-inspired gaming platform and intelligent matchmaker. Evolved from an AI prototype into a production-grade full-stack web application, Game Finder combines **Google Gemini AI recommendations**, digital store discovery browsing (cinematic carousels, genre hubs, curated shelves), comprehensive game detail profiles with trailer streaming, and personal library management (backlog tracking, user ratings, and ranked Top 10 lists).
 
@@ -26,35 +26,35 @@ Designed with a sleek, dark Steam-inspired aesthetic, purple/indigo glassmorphis
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🤖 AI-Powered Matchmaker (`/finder`)
+### AI-Powered Matchmaker (`/finder`)
 - **Three-Step Guided Wizard**: Tailor recommendations by **Genre & Mood Vibe**, **Difficulty & Age Rating**, and open-ended **Natural Language Prompts**.
 - **Gemini AI Engine**: Powered by Google Gemini (`gemini-3.5-flash-lite`) via LangChain to deeply understand player intent, thematic preferences, and difficulty nuances.
 - **Dynamic Metadata Enrichment**: Matches each AI recommendation with official Steam store art, genres, release dates, and store links.
 
-### 🏬 Digital Storefront & Discovery Hub (`/`)
+### Digital Storefront & Discovery Hub (`/`)
 - **Cinematic Hero Carousel**: Dynamic featured showcases highlighting trending benchmarks with direct store links.
 - **Curated Store Shelves**: Real-time carousels for *Trending Now*, *New Releases*, *Top Rated*, and *Hidden Gems*.
 - **Interactive Genre Exploration**: 12 responsive genre exploration hubs (Action, RPG, Strategy, Indie, Roguelike, Cyberpunk, etc.).
 - **Global Quick Search**: Keyboard-friendly (`Cmd/Ctrl + K` / `ESC`) instant catalog search modal with query debouncing and autocomplete pills.
 
-### 🏆 GOTY Hall of Fame Archive (`/goty`)
+### GOTY Hall of Fame Archive (`/goty`)
 - **Historic Annual Archive**: Explore Game of the Year winners and official nominees from The Game Awards (2014 to present).
 - **One-Click Library Integration**: Seamlessly add any past winner or nominee directly to your personal shelf.
 
-### 🎬 Comprehensive Game Profile Pages (`/games/[id]`)
+### Comprehensive Game Profile Pages (`/games/[id]`)
 - **Media Showcase**: Dedicated HTML5 video trailer streaming player (limited to 1 primary trailer per profile) alongside high-definition screenshots.
 - **Fullscreen Lightbox**: Keyboard-navigable image gallery with zoom and preview modes.
 - **Clean Semantic Descriptions**: Automated HTML sanitization and entity decoding that converts raw Steam markup into readable paragraphs.
 - **Hardware & Credits**: PC minimum and recommended system requirements, verified developer/publisher tags, and release dates.
 
-### 📚 Personal Library & Backlog Management (`/library`)
+### Personal Library & Backlog Management (`/library`)
 - **Shelf Status Organization**: Sort games across *Playing*, *Completed*, *Plan to Play*, *On Hold*, and *Dropped*.
 - **Favorites & Statistics**: Real-time counter of total games, in-progress backlogs, and favorited titles.
 - **Optimistic State Updates**: Instant UI transitions with fallback synchronization to Supabase and local storage.
 
-### ⭐ Ratings, Reviews & Top 10 Lists
+### Ratings, Reviews & Top 10 Lists
 - **Community & User Reviews**: Interactive 5-star rating input with rich markdown review support.
 - **Prestige Top 10 Curator**: Rank your personal all-time top 10 games with tier badges (Masterpiece, Elite, Gold).
 
@@ -83,7 +83,7 @@ Designed with a sleek, dark Steam-inspired aesthetic, purple/indigo glassmorphis
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - **Node.js**: v18.18+ or v20+
