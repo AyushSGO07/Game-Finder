@@ -106,3 +106,57 @@ def test_batch_enrich_empty_titles():
         json={"titles": []},
     )
     assert response.status_code == 422
+
+
+def test_get_featured_games():
+    """Test GET /api/v1/games/featured returns hero slides list."""
+    response = client.get("/api/v1/games/featured")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) >= 1
+    assert "title" in data[0]
+    assert "backdrop_url" in data[0]
+
+
+def test_get_shelf_games():
+    """Test GET /api/v1/games/shelves/{category} returns games list."""
+    for category in ["trending", "new_releases", "top_rated", "hidden_gems", "popular"]:
+        response = client.get(f"/api/v1/games/shelves/{category}")
+        assert response.status_code == 200
+        data = response.json()
+        assert isinstance(data, list)
+        assert len(data) >= 1
+        assert "title" in data[0]
+
+
+def test_get_genres():
+    """Test GET /api/v1/games/genres returns genre hub tiles."""
+    response = client.get("/api/v1/games/genres")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) >= 6
+    assert "slug" in data[0]
+    assert "name" in data[0]
+
+
+def test_discover_games():
+    """Test GET /api/v1/games/discover returns paginated GameSearchResponse."""
+    response = client.get("/api/v1/games/discover?page=1&page_size=6")
+    assert response.status_code == 200
+    data = response.json()
+    assert "total" in data
+    assert "games" in data
+    assert "page" in data
+    assert data["page"] == 1
+    assert len(data["games"]) <= 6
+
+
+def test_discover_games_with_filters():
+    """Test GET /api/v1/games/discover with genre and search query."""
+    response = client.get("/api/v1/games/discover?genre=RPG&sort_by=rating&page=1&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data["games"], list)
+

@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Gamepad2, Search, User, Menu } from 'lucide-react';
+import { Gamepad2, Search, User, Menu, LogOut, Library } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 interface NavbarProps {
   onOpenSearch?: () => void;
@@ -12,7 +13,6 @@ interface NavbarProps {
 
 export const NAV_LINKS = [
   { name: 'Home', href: '/' },
-  { name: 'Discover', href: '/discover' },
   { name: 'AI Finder', href: '/finder' },
   { name: 'GOTY', href: '/goty' },
   { name: 'My Library', href: '/library' },
@@ -20,6 +20,8 @@ export const NAV_LINKS = [
 
 export default function Navbar({ onOpenSearch, onToggleMobileMenu }: NavbarProps) {
   const pathname = usePathname() || '/';
+  const { user, profile, logout, isAuthenticated } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-slate-950/80 border-b border-white/5 transition-colors">
@@ -78,14 +80,81 @@ export default function Navbar({ onOpenSearch, onToggleMobileMenu }: NavbarProps
           </button>
 
           {/* User Sign In / Profile CTA */}
-          <Link
-            href="/auth"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium shadow-md shadow-indigo-600/25 hover:shadow-indigo-600/40 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            aria-label="Sign In or Account"
-          >
-            <User className="w-4 h-4" />
-            <span className="hidden sm:inline">Sign In</span>
-          </Link>
+          {isAuthenticated ? (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-white/10 text-white text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                aria-label="User account menu"
+                aria-expanded={showUserMenu}
+              >
+                <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-xs font-bold text-white overflow-hidden">
+                  {profile?.avatar_url ? (
+                    <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <span>{(profile?.display_name || user?.username || 'U')[0].toUpperCase()}</span>
+                  )}
+                </div>
+                <span className="hidden sm:inline max-w-[120px] truncate">
+                  {profile?.display_name || user?.username}
+                </span>
+              </button>
+
+              {showUserMenu && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setShowUserMenu(false)}
+                  />
+                  <div className="absolute right-0 mt-2 w-48 rounded-xl bg-slate-900 border border-white/10 shadow-2xl py-2 z-50">
+                    <div className="px-4 py-2 border-b border-white/5">
+                      <p className="text-xs text-slate-400">Signed in as</p>
+                      <p className="text-sm font-semibold text-white truncate">
+                        {user?.email}
+                      </p>
+                    </div>
+                    <Link
+                      href="/profile"
+                      onClick={() => setShowUserMenu(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5"
+                    >
+                      <User className="w-4 h-4 text-indigo-400" />
+                      <span>Profile & Settings</span>
+                    </Link>
+                    <Link
+                      href="/library"
+                      onClick={() => setShowUserMenu(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5"
+                    >
+                      <Library className="w-4 h-4 text-emerald-400" />
+                      <span>My Library</span>
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowUserMenu(false);
+                        logout();
+                      }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 text-left transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <Link
+              href="/auth"
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium shadow-md shadow-indigo-600/25 hover:shadow-indigo-600/40 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              aria-label="Sign In or Account"
+            >
+              <User className="w-4 h-4" />
+              <span className="hidden sm:inline">Sign In</span>
+            </Link>
+          )}
 
           {/* Mobile Menu Hamburger Toggle */}
           <button

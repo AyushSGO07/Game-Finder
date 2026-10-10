@@ -61,7 +61,7 @@ export default function GenreHub({ genres }: GenreHubProps) {
         </div>
 
         <Link
-          href="/discover"
+          href="/finder"
           className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group"
         >
           <span>All Categories</span>
@@ -77,7 +77,7 @@ export default function GenreHub({ genres }: GenreHubProps) {
           return (
             <Link
               key={genre.id}
-              href={`/discover?genre=${encodeURIComponent(genre.slug)}`}
+              href={`/finder?genre=${encodeURIComponent(genre.slug)}`}
               className="relative group rounded-2xl p-4 bg-slate-900/60 border border-white/5 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col justify-between min-h-[140px] backdrop-blur-sm"
               aria-label={`Genre: ${genre.name}`}
             >

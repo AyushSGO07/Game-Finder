@@ -10,6 +10,7 @@ from backend.app.core.auth import get_current_user, get_optional_user
 @pytest.fixture
 def service():
     svc = SupabaseService()
+    svc.client = None
     svc.jwt_secret = "test-secret-key-for-unit-testing-32-chars-min"
     return svc
 

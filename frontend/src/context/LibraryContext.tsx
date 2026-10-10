@@ -26,7 +26,21 @@ interface LibraryContextType {
 }
 
 const STORAGE_KEY = 'game_finder_library';
+const TOKEN_KEY = 'game_finder_jwt_token';
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+
+function getAuthHeaders(): HeadersInit {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  }
+  return headers;
+}
 
 const LibraryContext = createContext<LibraryContextType | undefined>(undefined);
 
@@ -35,26 +49,52 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Initialize from localStorage or fallback to MOCK_INITIAL_LIBRARY
+  // Initialize from localStorage and fetch server data if authenticated
   useEffect(() => {
+    let localItems: Record<string, UserLibraryItem> = {};
     try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
           if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
-            setItems(parsed);
-            setIsLoading(false);
-            return;
+            localItems = parsed;
           }
         }
       }
     } catch {
-      // LocalStorage error or JSON parse error - fallback to mocks
+      // LocalStorage error or JSON parse error
     }
 
-    setItems(MOCK_INITIAL_LIBRARY);
-    setIsLoading(false);
+    if (Object.keys(localItems).length > 0) {
+      setItems(localItems);
+      setIsLoading(false);
+    } else {
+      setItems(MOCK_INITIAL_LIBRARY);
+      setIsLoading(false);
+    }
+
+    // Attempt to hydrate from server if auth token is present
+    if (typeof window !== 'undefined' && localStorage.getItem(TOKEN_KEY)) {
+      fetch(`${BASE_URL}/library/library`, { headers: getAuthHeaders() })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((serverItems) => {
+          if (Array.isArray(serverItems) && serverItems.length > 0) {
+            const mapped: Record<string, UserLibraryItem> = {};
+            serverItems.forEach((item) => {
+              mapped[String(item.game_id)] = item;
+            });
+            setItems((prev) => {
+              const merged = { ...prev, ...mapped };
+              if (typeof window !== 'undefined') {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+              }
+              return merged;
+            });
+          }
+        })
+        .catch(() => {});
+    }
   }, []);
 
   // Save to localStorage whenever items change
@@ -115,7 +155,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       try {
         const res = await fetch(`${BASE_URL}/library/library/${gameId}`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAuthHeaders(),
           body: JSON.stringify({
             status,
             is_wishlisted: status === 'wishlist',
@@ -153,6 +193,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       try {
         const res = await fetch(`${BASE_URL}/library/library/${key}`, {
           method: 'DELETE',
+          headers: getAuthHeaders(),
         });
         if (!res.ok && res.status !== 401 && res.status !== 403 && res.status !== 404) {
           throw new Error(`Failed to remove game from library (HTTP ${res.status})`);
@@ -205,6 +246,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       try {
         const res = await fetch(`${BASE_URL}/library/favorites/${key}`, {
           method: 'POST',
+          headers: getAuthHeaders(),
         });
         if (!res.ok && res.status !== 401 && res.status !== 403) {
           throw new Error(`Failed to toggle favorite (HTTP ${res.status})`);
@@ -241,7 +283,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       try {
         await fetch(`${BASE_URL}/library/library/${key}`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAuthHeaders(),
           body: JSON.stringify({ playtime_hours: safeHours }),
         });
       } catch {
@@ -271,7 +313,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       try {
         await fetch(`${BASE_URL}/library/library/${key}`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAuthHeaders(),
           body: JSON.stringify({ personal_rating: safeRating }),
         });
       } catch {

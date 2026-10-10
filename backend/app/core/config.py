@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     
     # Google Gemini Configuration
     GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-1.5-flash"
+    GEMINI_MODEL: str = "gemini-3.5-flash-lite"
     
     # CORS Configuration
     CORS_ORIGINS: List[str] = [

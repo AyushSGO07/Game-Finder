@@ -1,7 +1,7 @@
 """Game metadata schemas for Game Finder."""
 
 from typing import Dict, List, Optional, Union
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, computed_field
 
 
 class ScreenshotItem(BaseModel):
@@ -33,11 +33,45 @@ class GameCard(BaseModel):
     title: str = Field(description="Game title")
     header_image: Optional[str] = Field(default=None, description="Header banner image URL")
     capsule_image: Optional[str] = Field(default=None, description="Capsule poster image URL")
+    hero_image: Optional[str] = Field(default=None, description="Hero backdrop image URL")
     genres: List[str] = Field(default_factory=list, description="Associated genres")
     rating: Optional[float] = Field(default=None, description="Score or rating (e.g. 0-100)")
     release_date: Optional[str] = Field(default=None, description="Release date string")
     short_description: Optional[str] = Field(default=None, description="Short summary snippet")
     price_overview: Optional[str] = Field(default=None, description="Formatted price or Free")
+    price: Optional[str] = Field(default=None, description="Price string")
+    developer: Optional[str] = Field(default=None, description="Developer")
+    publisher: Optional[str] = Field(default=None, description="Publisher")
+
+
+class HeroSlide(BaseModel):
+    """Slide item representation for store hero carousels."""
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    steam_appid: Optional[int] = None
+    title: str
+    backdrop_url: str
+    logo_url: Optional[str] = None
+    rating: float = 9.0
+    genres: List[str] = Field(default_factory=list)
+    synopsis: str = ""
+    store_url: Optional[str] = None
+    release_date: Optional[str] = None
+
+
+class GenreTile(BaseModel):
+    """Tile representation for store genre exploration hubs."""
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    name: str
+    slug: str
+    iconName: str
+    gradient: str
+    description: str
+    accentColor: str
+
 
 
 class GameDetail(BaseModel):
@@ -90,6 +124,11 @@ class GameSearchResponse(BaseModel):
     page: int = Field(default=1, ge=1, description="Current page number")
     page_size: int = Field(default=10, ge=1, le=100, description="Items per page")
     items: List[GameCard] = Field(default_factory=list, description="Matched game cards")
+
+    @computed_field
+    @property
+    def games(self) -> List[GameCard]:
+        return self.items
 
 
 class BatchEnrichRequest(BaseModel):

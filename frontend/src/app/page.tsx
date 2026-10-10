@@ -33,6 +33,7 @@ export default async function HomePage() {
           subtitle="The most played and talked about games this week"
           games={trendingGames}
           category="trending"
+          viewAllHref="/games?category=trending"
           accentDotColor="bg-indigo-500"
         />
       </section>
@@ -44,6 +45,7 @@ export default async function HomePage() {
           subtitle="Fresh titles and major expansions recently launched"
           games={newReleases}
           category="new_releases"
+          viewAllHref="/games?category=new_releases"
           accentDotColor="bg-emerald-500"
         />
       </section>
@@ -60,6 +62,7 @@ export default async function HomePage() {
           subtitle="Universally acclaimed masterpieces and player favorites"
           games={topRated}
           category="top_rated"
+          viewAllHref="/games?category=top_rated"
           accentDotColor="bg-amber-400"
         />
       </section>
@@ -71,6 +74,7 @@ export default async function HomePage() {
           subtitle="Exceptional indie triumphs and overlooked masterworks"
           games={hiddenGems}
           category="hidden_gems"
+          viewAllHref="/games?category=hidden_gems"
           accentDotColor="bg-purple-500"
         />
       </section>

@@ -127,7 +127,7 @@ export default function HeroCarousel({
         {/* Action CTAs */}
         <div className="flex flex-wrap items-center gap-3">
           <Link
-            href={current.store_url || `/discover?q=${encodeURIComponent(current.title)}`}
+            href={current.store_url || `/games/${current.steam_appid || current.id}`}
             onClick={() => onExplore?.(current)}
             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm sm:text-base shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400"
           >

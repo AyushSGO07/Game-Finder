@@ -8,13 +8,13 @@ vi.mock('next/navigation', () => ({
 }));
 
 describe('MobileNav Component', () => {
-  it('renders the persistent bottom navigation bar with 5 tabs', () => {
+  it('renders the persistent bottom navigation bar without Discover tab', () => {
     render(<MobileNav isOpen={false} onClose={vi.fn()} />);
     const bottomNav = screen.getByRole('navigation', { name: 'Mobile Bottom Navigation' });
     expect(bottomNav).toBeInTheDocument();
 
     expect(screen.getByRole('link', { name: /Home/i })).toHaveAttribute('href', '/');
-    expect(screen.getByRole('link', { name: /Discover/i })).toHaveAttribute('href', '/discover');
+    expect(screen.queryByRole('link', { name: /Discover/i })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Finder/i })).toHaveAttribute('href', '/finder');
     expect(screen.getByRole('link', { name: /GOTY/i })).toHaveAttribute('href', '/goty');
     expect(screen.getByRole('link', { name: /Library/i })).toHaveAttribute('href', '/library');

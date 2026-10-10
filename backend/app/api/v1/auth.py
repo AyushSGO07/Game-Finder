@@ -5,6 +5,10 @@ from backend.app.schemas.auth import (
     TokenResponse,
     UserInfo,
     UserProfileResponse,
+    UserProfileUpdate,
+    ForgotPasswordRequest,
+    ResetPasswordRequest,
+    PasswordResetResponse,
 )
 from backend.app.services.supabase_service import supabase_service
 from backend.app.core.auth import get_current_user, AuthenticatedUser
@@ -42,6 +46,11 @@ async def register(req: UserRegisterRequest):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e)
         )
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Registration could not be completed. Please try again."
+        )
 
 
 @router.post(
@@ -72,6 +81,11 @@ async def login(req: UserLoginRequest):
             detail=str(e),
             headers={"WWW-Authenticate": "Bearer"}
         )
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Sign in could not be completed. Please try again."
+        )
 
 
 @router.post(
@@ -97,3 +111,53 @@ async def get_me(current_user: AuthenticatedUser = Depends(get_current_user)):
             detail="User profile not found"
         )
     return UserProfileResponse(**profile)
+
+
+@router.patch(
+    "/profile",
+    response_model=UserProfileResponse,
+    summary="Update current user profile"
+)
+async def update_auth_profile(
+    updates: UserProfileUpdate,
+    current_user: AuthenticatedUser = Depends(get_current_user)
+):
+    """Update user profile bio, avatar, and gaming preferences."""
+    try:
+        updated = supabase_service.update_profile(
+            current_user.id,
+            updates.model_dump(exclude_unset=True)
+        )
+        return UserProfileResponse(**updated)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+
+
+@router.post(
+    "/forgot-password",
+    response_model=PasswordResetResponse,
+    summary="Request password reset link or instructions"
+)
+async def forgot_password(req: ForgotPasswordRequest):
+    """Trigger password reset instructions via Supabase Auth or mock service."""
+    res = supabase_service.forgot_password(email=req.email)
+    return PasswordResetResponse(message=res["message"])
+
+
+@router.post(
+    "/reset-password",
+    response_model=PasswordResetResponse,
+    summary="Reset password with new credentials"
+)
+async def reset_password(req: ResetPasswordRequest):
+    """Update password with new credentials."""
+    res = supabase_service.reset_password(
+        email=req.email,
+        new_password=req.new_password,
+        reset_token=req.reset_token
+    )
+    return PasswordResetResponse(message=res["message"])
+

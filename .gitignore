@@ -22,3 +22,4 @@ out/
 build/
 dist/
 .turbo/
+*.tsbuildinfo

@@ -154,3 +154,18 @@ class ReviewResponse(BaseModel):
     avatar_url: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    new_password: str = Field(..., min_length=8, description="New password must be at least 8 characters long")
+    reset_token: Optional[str] = None
+
+
+class PasswordResetResponse(BaseModel):
+    message: str
+

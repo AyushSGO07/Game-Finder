@@ -80,9 +80,15 @@ class RecommendationService:
             "difficulty": request.difficulty
         }
 
-        # If user supplied a freeform prompt, augment the genre/theme context
+        # If user supplied platform or freeform prompt, augment context
+        context_notes = []
+        if request.platform and request.platform.lower() != "any":
+            context_notes.append(f"Target Platform: {request.platform}")
         if request.prompt:
-            inputs["genre"] = f"{request.genre} (Theme / Player note: {request.prompt.strip()})"
+            context_notes.append(f"Theme / Player note: {request.prompt.strip()}")
+
+        if context_notes:
+            inputs["genre"] = f"{request.genre} ({'; '.join(context_notes)})"
 
         raw_output = None
         max_attempts = 4
@@ -131,9 +137,32 @@ class RecommendationService:
             else:
                 raise RecommendationError(f"Expected exactly 8 game recommendations, but model produced {len(games)}.")
 
+        # Enrich recommendations against genuine catalog / Steam metadata
+        try:
+            from backend.app.services.game_service import game_service
+            for idx, game in enumerate(games):
+                try:
+                    card = await game_service.enrich_game(title=game.name)
+                    if card:
+                        game.id = card.steam_appid or card.id or (idx + 1)
+                        game.steam_appid = card.steam_appid
+                        game.header_image = card.header_image or card.capsule_image
+                        game.capsule_image = card.capsule_image or card.header_image
+                        game.rating = card.rating
+                        game.release_date = card.release_date
+                        game.developer = card.developer
+                        if card.steam_appid:
+                            game.store_url = f"https://store.steampowered.com/app/{card.steam_appid}/"
+                except Exception:
+                    if game.id is None:
+                        game.id = idx + 1
+        except Exception:
+            pass
+
         return RecommendationResponse(
             recommendations=games,
             query_genre=request.genre,
             query_difficulty=request.difficulty,
-            query_age=request.age
+            query_age=request.age,
+            query_platform=request.platform
         )

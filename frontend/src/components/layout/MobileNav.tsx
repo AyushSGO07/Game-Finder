@@ -6,14 +6,15 @@ import { usePathname } from 'next/navigation';
 import {
   X,
   Home,
-  Compass,
   Sparkles,
   Trophy,
   Library,
   User,
   Gamepad2,
   Search,
+  LogOut,
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -23,7 +24,6 @@ interface MobileNavProps {
 
 export const MOBILE_TABS = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'Discover', href: '/discover', icon: Compass },
   { name: 'Finder', href: '/finder', icon: Sparkles },
   { name: 'GOTY', href: '/goty', icon: Trophy },
   { name: 'Library', href: '/library', icon: Library },
@@ -31,6 +31,19 @@ export const MOBILE_TABS = [
 
 export default function MobileNav({ isOpen, onClose, onOpenSearch }: MobileNavProps) {
   const pathname = usePathname() || '/';
+
+  let auth = {
+    isAuthenticated: false,
+    user: null as any,
+    profile: null as any,
+    logout: async () => {},
+  };
+  try {
+    auth = useAuth();
+  } catch {
+    // Fallback if rendered outside AuthProvider in isolated tests
+  }
+  const { isAuthenticated, user, profile, logout } = auth;
 
   // Prevent background scrolling when drawer is open
   useEffect(() => {
@@ -131,14 +144,41 @@ export default function MobileNav({ isOpen, onClose, onOpenSearch }: MobileNavPr
 
             {/* Bottom Actions */}
             <div className="pt-6 border-t border-white/10 flex flex-col gap-3">
-              <Link
-                href="/auth"
-                onClick={onClose}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-lg shadow-indigo-600/25 transition-all"
-              >
-                <User className="w-5 h-5" />
-                <span>Sign In / Profile</span>
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <div className="px-1 text-xs text-slate-400">
+                    Signed in as <span className="text-white font-medium">{profile?.display_name || user?.username}</span>
+                  </div>
+                  <Link
+                    href="/profile"
+                    onClick={onClose}
+                    className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-850 border border-white/10 hover:bg-slate-800 text-white font-medium transition-all"
+                  >
+                    <User className="w-5 h-5 text-indigo-400" />
+                    <span>Profile & Settings</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      logout();
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 text-sm font-medium transition-all"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/auth"
+                  onClick={onClose}
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-lg shadow-indigo-600/25 transition-all"
+                >
+                  <User className="w-5 h-5" />
+                  <span>Sign In / Sign Up</span>
+                </Link>
+              )}
             </div>
           </aside>
         </div>

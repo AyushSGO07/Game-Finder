@@ -47,7 +47,7 @@ async def main():
 
     try:
         response = await service.get_recommendations(request)
-        print(f"[✓] SUCCESS: Received {len(response.recommendations)} recommendations!\n")
+        print(f"[OK] SUCCESS: Received {len(response.recommendations)} recommendations!\n")
         for idx, game in enumerate(response.recommendations, 1):
             print(f"{idx}. {game.name}")
             print(f"   Reason: {game.match_reason}")

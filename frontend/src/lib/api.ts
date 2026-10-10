@@ -24,6 +24,18 @@ import {
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 const REQUEST_TIMEOUT_MS = 3000;
 
+function getAuthHeader(): Record<string, string> {
+  if (typeof window !== 'undefined') {
+    const token =
+      localStorage.getItem('game_finder_jwt_token') ||
+      localStorage.getItem('game_finder_auth_token');
+    if (token) {
+      return { Authorization: `Bearer ${token}` };
+    }
+  }
+  return {};
+}
+
 async function fetchWithTimeout(
   url: string,
   options?: RequestInit,
@@ -122,6 +134,9 @@ export async function searchGames(query: string): Promise<GameCard[]> {
     const res = await fetchWithTimeout(`${BASE_URL}/games/search?q=${encodeURIComponent(trimmed)}`);
     if (res.ok) {
       const data = await res.json();
+      if (Array.isArray(data.items)) {
+        return data.items;
+      }
       if (Array.isArray(data.games)) {
         return data.games;
       }
@@ -171,62 +186,33 @@ export async function fetchRecommendations(
           genre: request.genre,
           age: request.age,
           difficulty: request.difficulty,
+          platform: request.platform || 'PC',
           prompt: request.prompt || undefined,
         }),
       },
-      8000
+      15000
     );
 
     if (res.ok) {
       const data = await res.json();
       if (data && Array.isArray(data.recommendations) && data.recommendations.length > 0) {
         const recs = data.recommendations;
-        // Attempt batch enrichment to attach Steam artwork and metadata
-        try {
-          const titles = recs.map((r: { name: string }) => r.name);
-          const enrichRes = await fetchWithTimeout(
-            `${BASE_URL}/games/batch`,
-            {
-              method: 'POST',
-              body: JSON.stringify({ titles }),
-            },
-            4000
-          );
-          if (enrichRes.ok) {
-            const enrichData = await enrichRes.json();
-            const cards: GameCard[] = enrichData.games || [];
-            return recs.map((r: { name: string; match_reason: string; attributes: string[] }, idx: number) => {
-              const matchedCard = cards.find(
-                (c) => c.title.toLowerCase() === r.name.toLowerCase()
-              );
-              return {
-                id: matchedCard?.id || matchedCard?.steam_appid || idx + 1,
-                steam_appid: matchedCard?.steam_appid,
-                name: r.name,
-                match_reason: r.match_reason,
-                attributes: r.attributes || matchedCard?.genres || [],
-                header_image: matchedCard?.header_image || matchedCard?.capsule_image,
-                capsule_image: matchedCard?.capsule_image,
-                hero_image: matchedCard?.hero_image,
-                rating: matchedCard?.rating,
-                release_date: matchedCard?.release_date,
-                store_url: matchedCard?.steam_appid
-                  ? `https://store.steampowered.com/app/${matchedCard.steam_appid}/`
-                  : undefined,
-              };
-            });
-          }
-        } catch {
-          // Batch enrichment failed, proceed with raw recs
-        }
-
-        // Return recommendations with fallback artwork mapping
-        return recs.map((r: { name: string; match_reason: string; attributes: string[] }, idx: number) => ({
-          id: idx + 1,
+        return recs.map((r: any, idx: number) => ({
+          id: r.id || r.steam_appid || idx + 1,
+          steam_appid: r.steam_appid,
           name: r.name,
           match_reason: r.match_reason,
           attributes: r.attributes || [],
-          header_image: undefined,
+          header_image: r.header_image || r.capsule_image,
+          capsule_image: r.capsule_image,
+          hero_image: r.hero_image,
+          rating: r.rating,
+          release_date: r.release_date,
+          store_url:
+            r.store_url ||
+            (r.steam_appid ? `https://store.steampowered.com/app/${r.steam_appid}/` : undefined),
+          developer: r.developer,
+          publisher: r.publisher,
         }));
       }
     }
@@ -271,6 +257,9 @@ export async function submitGameReview(data: {
   try {
     const res = await fetchWithTimeout(`${BASE_URL}/library/reviews`, {
       method: 'POST',
+      headers: {
+        ...getAuthHeader(),
+      },
       body: JSON.stringify(payload),
     });
     if (res.ok) {
@@ -304,7 +293,11 @@ export async function submitGameReview(data: {
 
 export async function fetchUserRankings(): Promise<RankedList> {
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`);
+    const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`, {
+      headers: {
+        ...getAuthHeader(),
+      },
+    });
     if (res.ok) {
       const data = await res.json();
       if (data && Array.isArray(data.positions)) {
@@ -352,6 +345,9 @@ export async function saveUserRankings(
   try {
     const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`, {
       method: 'POST',
+      headers: {
+        ...getAuthHeader(),
+      },
       body: JSON.stringify(payload),
     });
     if (res.ok) {

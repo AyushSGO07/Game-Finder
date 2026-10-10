@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import {
   Gamepad2,
   Calendar,
@@ -134,13 +133,12 @@ export default function GameSidebar({ game }: GameSidebarProps) {
         </h3>
         <div className="flex flex-wrap gap-1.5">
           {game.genres.map((genre) => (
-            <Link
+            <span
               key={genre}
-              href={`/discover?genre=${encodeURIComponent(genre.toLowerCase())}`}
-              className="text-xs font-medium text-cyan-300 bg-cyan-950/40 hover:bg-cyan-900/50 px-2.5 py-1 rounded-lg border border-cyan-800/30 hover:border-cyan-500/50 transition-colors"
+              className="text-xs font-medium text-cyan-300 bg-cyan-950/40 px-2.5 py-1 rounded-lg border border-cyan-800/30"
             >
               {genre}
-            </Link>
+            </span>
           ))}
         </div>
       </div>

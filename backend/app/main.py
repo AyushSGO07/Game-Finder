@@ -13,6 +13,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,6 +21,7 @@ app.add_middleware(
 
 # Register API routers
 app.include_router(recommendations.router, prefix=settings.API_V1_STR)
+app.include_router(recommendations.router, prefix="/api")
 app.include_router(games.router, prefix=f"{settings.API_V1_STR}/games", tags=["games"])
 app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
 app.include_router(library.router, prefix=f"{settings.API_V1_STR}/me", tags=["user-library"])

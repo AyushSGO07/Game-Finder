@@ -111,3 +111,64 @@ def test_auth_logout():
     logout_res = client.post("/api/v1/auth/logout", headers=headers)
     assert logout_res.status_code == 200
     assert "Successfully logged out" in logout_res.json()["message"]
+
+
+def test_auth_forgot_password():
+    response = client.post(
+        "/api/v1/auth/forgot-password",
+        json={"email": "forgotuser@example.com"},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "instructions" in data["message"].lower() or "sent" in data["message"].lower()
+
+
+def test_auth_reset_password():
+    # Register user first
+    reg = {
+        "email": "resetuser@example.com",
+        "password": "oldpassword123",
+        "username": "reset_user"
+    }
+    client.post("/api/v1/auth/register", json=reg)
+
+    response = client.post(
+        "/api/v1/auth/reset-password",
+        json={
+            "email": "resetuser@example.com",
+            "new_password": "newpassword456",
+            "reset_token": "valid-token-123"
+        },
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "password updated" in data["message"].lower() or "success" in data["message"].lower()
+
+
+def test_auth_profile_update():
+    reg = {
+        "email": "updateuser@example.com",
+        "password": "validpassword123",
+        "username": "update_user"
+    }
+    reg_res = client.post("/api/v1/auth/register", json=reg)
+    token = reg_res.json()["access_token"]
+
+    headers = {"Authorization": f"Bearer {token}"}
+    update_res = client.patch(
+        "/api/v1/auth/profile",
+        headers=headers,
+        json={
+            "display_name": "Updated Handle",
+            "bio": "Avid tactical gamer",
+            "favorite_genres": ["Strategy", "RPG"],
+            "preferred_platforms": ["PC", "Steam Deck"],
+            "default_difficulty": "Hard",
+        },
+    )
+    assert update_res.status_code == 200
+    updated = update_res.json()
+    assert updated["display_name"] == "Updated Handle"
+    assert updated["bio"] == "Avid tactical gamer"
+    assert "Strategy" in updated["favorite_genres"]
+

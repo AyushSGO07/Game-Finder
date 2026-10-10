@@ -39,7 +39,7 @@ export default function GameShelf({
     }
   };
 
-  const targetHref = viewAllHref || (category ? `/discover?shelf=${category}` : '/discover');
+  const targetHref = viewAllHref || (category ? `/games?category=${category}` : '/games');
 
   return (
     <section

@@ -86,13 +86,16 @@ export interface GameSearchResponse {
   total: number;
   games: GameCard[];
   page: number;
-  per_page: number;
+  per_page?: number;
+  page_size?: number;
+  has_more?: boolean;
 }
 
 export interface RecommendationRequest {
   genre: string;
   age: string;
   difficulty: string;
+  platform?: string;
   prompt?: string;
 }
 
@@ -112,6 +115,8 @@ export interface EnrichedRecommendation extends GameRecommendation {
   release_date?: string;
   store_url?: string;
   price?: string;
+  developer?: string;
+  publisher?: string;
 }
 
 export interface RecommendationResponse {
@@ -123,6 +128,7 @@ export interface WizardPreferences {
   mood: string;
   difficulty: string;
   age: string;
+  platform?: string;
   prompt: string;
 }
 
@@ -249,3 +255,30 @@ export interface GotyYearArchive {
   winner: GotyWinner;
   nominees: GotyNominee[];
 }
+
+export interface UserInfo {
+  id: string;
+  email: string;
+  username: string;
+  role?: string;
+}
+
+export interface UserProfileResponse {
+  id: string;
+  username: string;
+  display_name?: string | null;
+  avatar_url?: string | null;
+  bio?: string | null;
+  favorite_genres?: string[];
+  preferred_platforms?: string[];
+  default_difficulty?: string;
+  default_age_rating?: string;
+  is_public?: boolean;
+  show_library?: boolean;
+  show_favorites?: boolean;
+  show_reviews?: boolean;
+  show_rankings?: boolean;
+  created_at?: string | null;
+  updated_at?: string | null;
+}
+

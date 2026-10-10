@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Gamepad2, Info } from 'lucide-react';
 import { fetchGameDetails, fetchGameReviews } from '@/lib/api';
+import { cleanGameDescription } from '@/lib/sanitizeDescription';
 import GameHeader from '@/components/game/GameHeader';
 import GameSidebar from '@/components/game/GameSidebar';
 import MediaGallery from '@/components/game/MediaGallery';
@@ -23,12 +24,14 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
     };
   }
 
+  const cleanDescription = cleanGameDescription(game.short_description || game.about_the_game)[0] || `Explore ${game.title} details, trailers, and screenshots.`;
+
   return {
     title: `${game.title} — Game Details & Media | Game Finder`,
-    description: game.short_description || `Explore ${game.title} details, trailers, and screenshots.`,
+    description: cleanDescription,
     openGraph: {
       title: game.title,
-      description: game.short_description,
+      description: cleanDescription,
       images: game.header_image ? [{ url: game.header_image }] : [],
     },
   };
@@ -63,17 +66,18 @@ export default async function GameDetailPage({ params }: GamePageProps) {
   }
 
   const aboutText = game.about_the_game || game.detailed_description || game.short_description;
+  const descriptionParagraphs = cleanGameDescription(aboutText);
 
   return (
     <article className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 select-none">
-      {/* Back to discovery breadcrumb link */}
+      {/* Back to home breadcrumb link */}
       <div>
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to Store Discovery</span>
+          <span>Back to Home</span>
         </Link>
       </div>
 
@@ -103,8 +107,18 @@ export default async function GameDetailPage({ params }: GamePageProps) {
               </h2>
             </div>
 
-            <div className="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base leading-relaxed space-y-3">
-              <p>{aboutText}</p>
+            <div className="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base leading-relaxed space-y-4">
+              {descriptionParagraphs.length > 0 ? (
+                descriptionParagraphs.map((paragraph, idx) => (
+                  <p key={idx} className="leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))
+              ) : (
+                <p className="text-slate-400 italic">
+                  No detailed description is currently available for this title.
+                </p>
+              )}
             </div>
           </section>
 

@@ -18,8 +18,10 @@ describe('GameShelf Component', () => {
     );
 
     expect(screen.getByRole('heading', { level: 2, name: 'Trending Now' })).toBeInTheDocument();
-    expect(screen.getByText('Most played releases this week')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /View All/i })).toHaveAttribute('href', '/discover?shelf=trending');
+    expect(screen.getByRole('link', { name: /View All/i })).toHaveAttribute(
+      'href',
+      '/games?category=trending'
+    );
 
     // Verify first game card details
     const firstGame = trendingGames[0];

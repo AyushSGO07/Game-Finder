@@ -654,63 +654,305 @@ export const MOCK_GAME_DETAILS: Record<string, GameDetail> = {
       recommended: 'OS: Windows 10/11 64-bit\nProcessor: Intel i7 8700K / AMD r5 3600\nMemory: 16 GB RAM\nGraphics: Nvidia 2060 Super / RX 5700 XT (8GB+ of VRAM)\nDirectX: Version 11\nStorage: 150 GB available space',
     },
   },
+  '553850': {
+    id: 553850,
+    steam_appid: 553850,
+    title: 'HELLDIVERS™ 2',
+    header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/553850/header.jpg',
+    capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/553850/capsule_616x353.jpg',
+    hero_image: 'https://cdn.akamai.steamstatic.com/steam/apps/553850/library_hero.jpg',
+    short_description: 'Join the Helldivers and fight for freedom across a hostile galaxy in a fast, frantic, and ferocious third-person shooter.',
+    detailed_description: 'The Galaxy’s Last Line of Offence. Enlist in the Helldivers and join the fight for freedom across a hostile galaxy in a fast, frantic, and ferocious third-person shooter.',
+    about_the_game: 'Freedom. Peace. Managed Democracy. Your Super Earth-born rights. The key pillars of our civilization are under attack from deadly alien civilizations.',
+    genres: ['Action', 'Co-op', 'Third-Person Shooter', 'Sci-Fi'],
+    developers: ['Arrowhead Game Studios'],
+    publishers: ['PlayStation Publishing LLC'],
+    release_date: 'Feb 8, 2024',
+    rating: 8.8,
+    price: '$39.99',
+    platforms: ['Windows', 'PlayStation 5'],
+    website: 'https://www.playstation.com/games/helldivers-2/',
+    steam_url: 'https://store.steampowered.com/app/553850/HELLDIVERS_2/',
+    movies: [],
+    screenshots: [
+      {
+        id: 1,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/553850/header.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/553850/header.jpg',
+      },
+    ],
+    pc_requirements: {
+      minimum: 'OS: Windows 10 64-bit\nProcessor: Intel Core i7-4790K / AMD Ryzen 5 1500X\nMemory: 8 GB RAM\nGraphics: NVIDIA GeForce GTX 1050 Ti / AMD Radeon RX 470\nStorage: 100 GB available space',
+      recommended: 'OS: Windows 10/11 64-bit\nProcessor: Intel Core i7-9700K / AMD Ryzen 7 3700X\nMemory: 16 GB RAM\nGraphics: NVIDIA GeForce RTX 2060 / AMD Radeon RX 6600 XT\nStorage: 100 GB SSD',
+    },
+  },
+  '2358720': {
+    id: 2358720,
+    steam_appid: 2358720,
+    title: 'Black Myth: Wukong',
+    header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/header.jpg',
+    capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/capsule_616x353.jpg',
+    hero_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/library_hero.jpg',
+    short_description: 'An action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead.',
+    detailed_description: 'Black Myth: Wukong is an action RPG rooted in Chinese mythology. The story is based on Journey to the West, one of the Four Great Classical Novels of Chinese literature.',
+    about_the_game: 'Venture into a fascinating realm filled with the wonders and discoveries of ancient Chinese mythology!',
+    genres: ['Action RPG', 'Souls-like', 'Mythology', 'Action'],
+    developers: ['Game Science'],
+    publishers: ['Game Science'],
+    release_date: 'Aug 20, 2024',
+    rating: 9.2,
+    price: '$59.99',
+    platforms: ['Windows', 'PlayStation 5'],
+    website: 'https://www.heishenhua.com/',
+    steam_url: 'https://store.steampowered.com/app/2358720/Black_Myth_Wukong/',
+    movies: [],
+    screenshots: [
+      {
+        id: 1,
+        path_thumbnail: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/header.jpg',
+        path_full: 'https://cdn.akamai.steamstatic.com/steam/apps/2358720/header.jpg',
+      },
+    ],
+    pc_requirements: undefined,
+  },
+  '2379780': {
+    id: 2379780,
+    steam_appid: 2379780,
+    title: 'Balatro',
+    header_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2379780/header.jpg',
+    capsule_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2379780/capsule_616x353.jpg',
+    hero_image: 'https://cdn.akamai.steamstatic.com/steam/apps/2379780/library_hero.jpg',
+    short_description: 'The poker roguelike. Balatro is a hypnotically satisfying deckbuilder where you play illegal poker hands and discover game-changing jokers.',
+    detailed_description: 'Balatro is a poker-inspired roguelike deck builder all about creating powerful synergies and winning big.',
+    about_the_game: 'Endless possibilities — every pickup, discard and joker can dramatically alter the course of your run.',
+    genres: ['Roguelike', 'Deckbuilder', 'Strategy', 'Card Game'],
+    developers: ['LocalThunk'],
+    publishers: ['Playstack'],
+    release_date: 'Feb 20, 2024',
+    rating: 9.4,
+    price: '$14.99',
+    platforms: ['Windows', 'Mac', 'Console'],
+    website: 'https://www.playbalatro.com/',
+    steam_url: 'https://store.steampowered.com/app/2379780/Balatro/',
+    movies: [],
+    screenshots: [],
+    pc_requirements: undefined,
+  },
+  'astro-bot': {
+    id: 'astro-bot',
+    steam_appid: undefined,
+    title: 'Astro Bot',
+    header_image: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co8435.jpg',
+    capsule_image: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co8435.jpg',
+    hero_image: 'https://images.igdb.com/igdb/image/upload/t_1080p/scphv1.jpg',
+    short_description: 'Join ASTRO in a brand-new, supersized space adventure across over 50 planets full of fun, secrets, and PlayStation cameos.',
+    detailed_description: 'Game of the Year 2024 Winner. A masterclass in 3D platforming joy, precision movement mechanics, and pure celebration of gaming history.',
+    about_the_game: 'Blast off on a galactic quest to rescue ASTRO’s lost VIP bot crew across diverse galaxies.',
+    genres: ['Platformer', 'Action', '3D Platformer', 'Family'],
+    developers: ['Team Asobi'],
+    publishers: ['Sony Interactive Entertainment'],
+    release_date: 'Sep 6, 2024',
+    rating: 9.8,
+    price: '$59.99',
+    platforms: ['PlayStation 5'],
+    website: 'https://www.teamasobi.com/',
+    movies: [],
+    screenshots: [],
+    pc_requirements: undefined,
+  },
 };
 
-export function getDefaultMockGameDetail(id: string | number): GameDetail {
-  const strId = String(id);
-  const numId = typeof id === 'number' ? id : parseInt(id, 10) || 1245620;
+export function getDefaultMockGameDetail(id: string | number): GameDetail | null {
+  const strId = String(id).trim();
+  const numId = typeof id === 'number' ? id : parseInt(id, 10);
 
-  // Check if we have exact match in dictionary
+  // 1. Direct dictionary match
   if (MOCK_GAME_DETAILS[strId]) {
     return MOCK_GAME_DETAILS[strId];
   }
 
-  // Check if we have a match in hero slides or shelf games
-  const heroMatch = MOCK_HERO_SLIDES.find((h) => String(h.steam_appid) === strId || h.id === strId);
-  const title = heroMatch ? heroMatch.title : `Featured Game #${strId}`;
-  const genres = heroMatch ? heroMatch.genres : ['Action', 'Adventure', 'RPG'];
-  const rating = heroMatch ? heroMatch.rating : 9.0;
-  const synopsis = heroMatch ? heroMatch.synopsis : 'An incredible gaming experience filled with rich lore, deep systems, and breathtaking visual design.';
+  // 2. Check hero slides
+  const heroMatch = MOCK_HERO_SLIDES.find(
+    (h) => String(h.steam_appid) === strId || h.id === strId || h.title.toLowerCase() === strId.toLowerCase()
+  );
+  if (heroMatch) {
+    const aid = heroMatch.steam_appid || (typeof numId === 'number' && !isNaN(numId) ? numId : 0);
+    return {
+      id: aid || heroMatch.id,
+      steam_appid: heroMatch.steam_appid,
+      title: heroMatch.title,
+      header_image: heroMatch.backdrop_url,
+      capsule_image: heroMatch.backdrop_url,
+      hero_image: heroMatch.backdrop_url,
+      short_description: heroMatch.synopsis,
+      detailed_description: heroMatch.synopsis,
+      about_the_game: heroMatch.synopsis,
+      genres: heroMatch.genres,
+      developers: ['Featured Game Studio'],
+      publishers: ['Game Publisher'],
+      release_date: heroMatch.release_date || '2024',
+      rating: heroMatch.rating,
+      price: '$59.99',
+      platforms: ['Windows', 'PlayStation', 'Xbox'],
+      steam_url: heroMatch.store_url || (heroMatch.steam_appid ? `https://store.steampowered.com/app/${heroMatch.steam_appid}/` : undefined),
+      movies: [],
+      screenshots: [
+        {
+          id: 1,
+          path_thumbnail: heroMatch.backdrop_url,
+          path_full: heroMatch.backdrop_url,
+        },
+      ],
+      pc_requirements: undefined,
+    };
+  }
 
-  return {
-    id: numId,
-    steam_appid: numId,
-    title,
-    header_image: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
-    capsule_image: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/capsule_616x353.jpg`,
-    hero_image: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/library_hero.jpg`,
-    short_description: synopsis,
-    detailed_description: `${synopsis} Explore immersive worlds, master complex mechanics, and customize your build to overcome challenges.`,
-    about_the_game: `${synopsis} Featuring solo and cooperative playstyles with hours of cinematic content.`,
-    genres,
-    developers: ['Master Game Studios'],
-    publishers: ['Global Interactive Publishing'],
-    release_date: '2024',
-    rating,
-    price: '$59.99',
-    platforms: ['Windows', 'PlayStation', 'Xbox'],
-    steam_url: `https://store.steampowered.com/app/${numId}/`,
-    movies: [
-      {
-        id: 1001,
-        name: `${title} - Official Showcase`,
-        thumbnail: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
-        mp4_url: 'https://video.akamai.steamstatic.com/store_trailers/256872088/movie480.mp4',
-        webm_url: 'https://video.akamai.steamstatic.com/store_trailers/256872088/movie480.webm',
-      },
-    ],
-    screenshots: [
-      {
-        id: 1,
-        path_thumbnail: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
-        path_full: `https://cdn.akamai.steamstatic.com/steam/apps/${numId}/header.jpg`,
-      },
-    ],
-    pc_requirements: {
-      minimum: 'OS: Windows 10 64-bit\nProcessor: Intel Core i5 or AMD Ryzen 5\nMemory: 8 GB RAM\nGraphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580\nStorage: 50 GB available space',
-      recommended: 'OS: Windows 10/11 64-bit\nProcessor: Intel Core i7 or AMD Ryzen 7\nMemory: 16 GB RAM\nGraphics: NVIDIA GeForce RTX 3060 or AMD Radeon RX 6700 XT\nStorage: 50 GB SSD',
-    },
-  };
+  // 3. Search all shelf games
+  const allShelves = [
+    ...(MOCK_SHELF_GAMES.trending || []),
+    ...(MOCK_SHELF_GAMES.new_releases || []),
+    ...(MOCK_SHELF_GAMES.top_rated || []),
+    ...(MOCK_SHELF_GAMES.hidden_gems || []),
+  ];
+  const shelfMatch = allShelves.find(
+    (g) =>
+      String(g.id) === strId ||
+      (g.steam_appid && String(g.steam_appid) === strId) ||
+      g.title.toLowerCase() === strId.toLowerCase()
+  );
+  if (shelfMatch) {
+    const aid = shelfMatch.steam_appid || (typeof numId === 'number' && !isNaN(numId) ? numId : undefined);
+    const cover = shelfMatch.header_image || shelfMatch.capsule_image;
+    return {
+      id: aid || shelfMatch.id,
+      steam_appid: aid,
+      title: shelfMatch.title,
+      header_image: shelfMatch.header_image,
+      capsule_image: shelfMatch.capsule_image,
+      hero_image: shelfMatch.header_image,
+      short_description: shelfMatch.short_description || `Experience ${shelfMatch.title}.`,
+      detailed_description: shelfMatch.short_description || `Experience ${shelfMatch.title}.`,
+      about_the_game: shelfMatch.short_description || `Experience ${shelfMatch.title}.`,
+      genres: shelfMatch.genres,
+      developers: shelfMatch.developer ? [shelfMatch.developer] : ['Independent Developer'],
+      publishers: shelfMatch.developer ? [shelfMatch.developer] : ['Publisher'],
+      release_date: shelfMatch.release_date || '2024',
+      rating: shelfMatch.rating || 9.0,
+      price: shelfMatch.price || '$59.99',
+      platforms: ['Windows', 'PlayStation', 'Xbox'],
+      steam_url: aid ? `https://store.steampowered.com/app/${aid}/` : undefined,
+      movies: [],
+      screenshots: cover ? [{ id: 1, path_thumbnail: cover, path_full: cover }] : [],
+      pc_requirements: undefined,
+    };
+  }
+
+  // 4. Search GOTY winners & nominees
+  for (const archive of MOCK_GOTY_ARCHIVE) {
+    const w = archive.winner;
+    if (
+      String(w.game_id) === strId ||
+      (w.steam_appid && String(w.steam_appid) === strId) ||
+      w.title.toLowerCase() === strId.toLowerCase()
+    ) {
+      return {
+        id: w.steam_appid || w.game_id,
+        steam_appid: w.steam_appid || undefined,
+        title: w.title,
+        header_image: w.cover_url,
+        capsule_image: w.cover_url,
+        hero_image: w.hero_image || w.cover_url,
+        short_description: w.description || w.award_rationale,
+        detailed_description: `${w.description || ''} ${w.award_rationale || ''}`.trim(),
+        about_the_game: w.description || w.award_rationale,
+        genres: w.genres || ['Action', 'Adventure'],
+        developers: [w.developer || 'Game Developer'],
+        publishers: [w.publisher || 'Game Publisher'],
+        release_date: w.release_date,
+        rating: 9.8,
+        price: '$59.99',
+        platforms: ['Windows', 'PlayStation'],
+        steam_url: w.steam_url || (w.steam_appid ? `https://store.steampowered.com/app/${w.steam_appid}/` : undefined),
+        movies: [],
+        screenshots: w.cover_url ? [{ id: 1, path_thumbnail: w.cover_url, path_full: w.hero_image || w.cover_url }] : [],
+        pc_requirements: undefined,
+      };
+    }
+    for (const nom of archive.nominees) {
+      if (
+        String(nom.game_id) === strId ||
+        (nom.steam_appid && String(nom.steam_appid) === strId) ||
+        nom.title.toLowerCase() === strId.toLowerCase()
+      ) {
+        return {
+          id: nom.steam_appid || nom.game_id,
+          steam_appid: nom.steam_appid || undefined,
+          title: nom.title,
+          header_image: nom.cover_url,
+          capsule_image: nom.cover_url,
+          hero_image: nom.cover_url,
+          short_description: `Critically acclaimed nominee for Game of the Year: ${nom.title}.`,
+          detailed_description: `Nominated for Game of the Year at The Game Awards. Features exceptional craftsmanship in ${(nom.genres || []).join(', ')}.`,
+          about_the_game: `Nominee for Game of the Year: ${nom.title}.`,
+          genres: nom.genres || ['Action', 'Adventure'],
+          developers: [nom.developer || 'Game Developer'],
+          publishers: [nom.publisher || 'Game Publisher'],
+          release_date: '2024',
+          rating: 9.0,
+          price: '$59.99',
+          platforms: ['Windows', 'PlayStation', 'Xbox'],
+          steam_url: nom.steam_appid ? `https://store.steampowered.com/app/${nom.steam_appid}/` : undefined,
+          movies: [],
+          screenshots: nom.cover_url ? [{ id: 1, path_thumbnail: nom.cover_url, path_full: nom.cover_url }] : [],
+          pc_requirements: undefined,
+        };
+      }
+    }
+  }
+
+  // 5. Unknown numeric ID fallback (resilient Steam App structure without fake "Featured Game" titles)
+  const fallbackNum = typeof numId === 'number' && !isNaN(numId) ? numId : 0;
+  if (fallbackNum > 0) {
+    return {
+      id: fallbackNum,
+      steam_appid: fallbackNum,
+      title: `Steam App ${strId}`,
+      header_image: `https://cdn.akamai.steamstatic.com/steam/apps/${fallbackNum}/header.jpg`,
+      capsule_image: `https://cdn.akamai.steamstatic.com/steam/apps/${fallbackNum}/capsule_616x353.jpg`,
+      hero_image: `https://cdn.akamai.steamstatic.com/steam/apps/${fallbackNum}/library_hero.jpg`,
+      short_description: `Steam catalog entry for AppID ${strId}.`,
+      detailed_description: `Steam catalog entry for AppID ${strId}. Additional details and community discussions available via Steam Store.`,
+      about_the_game: `Steam catalog entry for AppID ${strId}.`,
+      genres: ['Action', 'Adventure'],
+      developers: ['Steam Developer'],
+      publishers: ['Steam Publisher'],
+      release_date: 'Available on Steam',
+      rating: 8.5,
+      price: '$19.99',
+      platforms: ['Windows'],
+      steam_url: `https://store.steampowered.com/app/${fallbackNum}/`,
+      movies: [
+        {
+          id: 1,
+          name: 'Preview',
+          thumbnail: `https://cdn.akamai.steamstatic.com/steam/apps/${fallbackNum}/header.jpg`,
+          mp4_url: 'https://cdn.akamai.steamstatic.com/steam/apps/256990529/movie480_vp9.webm',
+          webm_url: 'https://cdn.akamai.steamstatic.com/steam/apps/256990529/movie480_vp9.webm',
+        },
+      ],
+      screenshots: [
+        {
+          id: 1,
+          path_thumbnail: `https://cdn.akamai.steamstatic.com/steam/apps/${fallbackNum}/header.jpg`,
+          path_full: `https://cdn.akamai.steamstatic.com/steam/apps/${fallbackNum}/library_hero.jpg`,
+        },
+      ],
+      pc_requirements: undefined,
+    };
+  }
+
+  // Genuinely not found in catalog
+  return null;
 }
 
 export function generateMockRecommendations(

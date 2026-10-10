@@ -26,23 +26,22 @@ describe('Navbar Component', () => {
   it('renders persistent navigation links with correct canonical hrefs', () => {
     render(<Navbar />);
     const homeLink = screen.getByRole('link', { name: /^Home$/ });
-    const discoverLink = screen.getByRole('link', { name: /^Discover$/ });
     const finderLink = screen.getByRole('link', { name: /^AI Finder$/ });
     const gotyLink = screen.getByRole('link', { name: /^GOTY$/ });
     const libraryLink = screen.getByRole('link', { name: /^My Library$/ });
 
     expect(homeLink).toHaveAttribute('href', '/');
-    expect(discoverLink).toHaveAttribute('href', '/discover');
+    expect(screen.queryByRole('link', { name: /^Discover$/ })).not.toBeInTheDocument();
     expect(finderLink).toHaveAttribute('href', '/finder');
     expect(gotyLink).toHaveAttribute('href', '/goty');
     expect(libraryLink).toHaveAttribute('href', '/library');
   });
 
   it('highlights the active route based on current pathname', () => {
-    mockPathname = '/discover';
+    mockPathname = '/finder';
     render(<Navbar />);
-    const discoverLink = screen.getByRole('link', { name: /^Discover$/ });
-    expect(discoverLink).toHaveAttribute('aria-current', 'page');
+    const finderLink = screen.getByRole('link', { name: /^AI Finder$/ });
+    expect(finderLink).toHaveAttribute('aria-current', 'page');
   });
 
   it('fires onOpenSearch when the search button is clicked', () => {

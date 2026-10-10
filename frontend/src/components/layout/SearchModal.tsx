@@ -164,48 +164,53 @@ export default function SearchModal({ isOpen, onClose, onSelectGame }: SearchMod
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 Results ({results.length})
               </p>
-              {results.map((game) => (
-                <div
-                  key={game.id}
-                  onClick={() => {
-                    onSelectGame?.(game);
-                    onClose();
-                  }}
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 hover:bg-indigo-950/30 border border-white/5 hover:border-indigo-500/40 cursor-pointer transition-all group"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    {game.header_image ? (
-                      <img
-                        src={game.header_image}
-                        alt={game.title}
-                        className="w-16 h-10 object-cover rounded-md shrink-0 border border-white/10"
-                      />
-                    ) : (
-                      <div className="w-16 h-10 bg-slate-800 rounded-md flex items-center justify-center text-[10px] text-slate-500">
-                        GAME
+              {results.map((game) => {
+                const targetId = String(game.steam_appid || game.id);
+                return (
+                  <Link
+                    key={game.id}
+                    href={`/games/${targetId}`}
+                    onClick={() => {
+                      onSelectGame?.(game);
+                      onClose();
+                    }}
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/50 hover:bg-indigo-950/30 border border-white/5 hover:border-indigo-500/40 cursor-pointer transition-all group focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    tabIndex={0}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      {game.header_image ? (
+                        <img
+                          src={game.header_image}
+                          alt={game.title}
+                          className="w-16 h-10 object-cover rounded-md shrink-0 border border-white/10"
+                        />
+                      ) : (
+                        <div className="w-16 h-10 bg-slate-800 rounded-md flex items-center justify-center text-[10px] text-slate-500">
+                          GAME
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-white group-hover:text-indigo-300 truncate">
+                          {game.title}
+                        </p>
+                        <p className="text-xs text-slate-400 truncate">
+                          {game.genres.slice(0, 2).join(' • ')}
+                        </p>
                       </div>
-                    )}
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-white group-hover:text-indigo-300 truncate">
-                        {game.title}
-                      </p>
-                      <p className="text-xs text-slate-400 truncate">
-                        {game.genres.slice(0, 2).join(' • ')}
-                      </p>
                     </div>
-                  </div>
 
-                  <div className="flex items-center gap-3 shrink-0 ml-2">
-                    {game.rating && (
-                      <div className="flex items-center gap-1 text-xs text-amber-400 font-semibold">
-                        <Star className="w-3.5 h-3.5 fill-amber-400" />
-                        <span>{game.rating}</span>
-                      </div>
-                    )}
-                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition-colors" />
-                  </div>
-                </div>
-              ))}
+                    <div className="flex items-center gap-3 shrink-0 ml-2">
+                      {game.rating && (
+                        <div className="flex items-center gap-1 text-xs text-amber-400 font-semibold">
+                          <Star className="w-3.5 h-3.5 fill-amber-400" />
+                          <span>{game.rating}</span>
+                        </div>
+                      )}
+                      <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition-colors" />
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>

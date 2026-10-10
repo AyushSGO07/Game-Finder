@@ -60,4 +60,27 @@ describe('GotyPage Route Integration', () => {
     expect(screen.getByText('Alan Wake 2')).toBeInTheDocument();
     expect(screen.getByText("Marvel's Spider-Man 2")).toBeInTheDocument();
   });
+
+  it('renders nominee cards with long titles such as Elden Ring Shadow of the Erdtree without overlapping actions', () => {
+    render(
+      <LibraryProvider>
+        <GotyPage />
+      </LibraryProvider>
+    );
+
+    // Elden Ring Shadow of the Erdtree is among 2024 nominees
+    expect(screen.getByText('Elden Ring Shadow of the Erdtree')).toBeInTheDocument();
+
+    // Verify Details link exists and navigates to the game's page
+    const detailsLink = screen.getByRole('link', {
+      name: /View details for Elden Ring Shadow of the Erdtree/i,
+    });
+    expect(detailsLink).toBeInTheDocument();
+    expect(detailsLink).toHaveAttribute('href', '/games/2778580');
+
+    // Verify Add to Shelf selector button is distinct and accessible
+    const shelfButtons = screen.getAllByRole('button', { name: /Add to Shelf/i });
+    expect(shelfButtons.length).toBeGreaterThan(0);
+  });
 });
+
