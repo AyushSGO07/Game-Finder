@@ -1,3 +1,25 @@
+import os
+import sys
+import types
+
+# Ensure backend package resolves even when running directly from backend root
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+_backend_dir = os.path.dirname(_app_dir)
+_repo_dir = os.path.dirname(_backend_dir)
+
+for _d in [_backend_dir, _repo_dir]:
+    if _d and _d not in sys.path:
+        sys.path.insert(0, _d)
+
+if "backend" not in sys.modules:
+    try:
+        import backend
+    except ImportError:
+        _backend_pkg = types.ModuleType("backend")
+        _backend_pkg.__path__ = [_backend_dir]
+        _backend_pkg.__file__ = os.path.join(_backend_dir, "__init__.py")
+        sys.modules["backend"] = _backend_pkg
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.core.config import settings
