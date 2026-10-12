@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { UserInfo, UserProfileResponse } from '@/types/game';
+import { getApiBaseUrl } from '@/lib/api';
 
 interface AuthContextType {
   user: UserInfo | null;
@@ -21,7 +22,7 @@ interface AuthContextType {
 
 const TOKEN_KEY = 'game_finder_jwt_token';
 const USER_KEY = 'game_finder_user_data';
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+const getBaseUrl = (): string => getApiBaseUrl();
 
 function parseApiError(data: any, status: number, defaultMsg: string): string {
   if (data?.detail) {
@@ -79,7 +80,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchProfile = useCallback(async (jwt: string): Promise<UserProfileResponse | null> => {
     try {
-      const res = await fetch(`${BASE_URL}/auth/me`, {
+      const res = await fetch(`${getBaseUrl()}/auth/me`, {
         headers: {
           'Authorization': `Bearer ${jwt}`,
           'Content-Type': 'application/json',
@@ -122,7 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/auth/login`, {
+      const res = await fetch(`${getBaseUrl()}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -168,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/auth/register`, {
+      const res = await fetch(`${getBaseUrl()}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -218,7 +219,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(async () => {
     if (token) {
       try {
-        await fetch(`${BASE_URL}/auth/logout`, {
+        await fetch(`${getBaseUrl()}/auth/logout`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -246,7 +247,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/auth/profile`, {
+      const res = await fetch(`${getBaseUrl()}/auth/profile`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -277,7 +278,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const forgotPassword = useCallback(async (email: string) => {
     setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/auth/forgot-password`, {
+      const res = await fetch(`${getBaseUrl()}/auth/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
@@ -304,7 +305,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const resetPassword = useCallback(async (email: string, newPassword: string, resetToken?: string) => {
     setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/auth/reset-password`, {
+      const res = await fetch(`${getBaseUrl()}/auth/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

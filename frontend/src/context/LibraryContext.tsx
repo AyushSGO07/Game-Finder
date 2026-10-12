@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { ShelfStatus, UserLibraryItem } from '@/types/game';
 import { MOCK_INITIAL_LIBRARY } from '@/lib/mockData';
+import { getApiBaseUrl } from '@/lib/api';
 
 interface GameLike {
   id: string | number;
@@ -27,7 +28,7 @@ interface LibraryContextType {
 
 const STORAGE_KEY = 'game_finder_library';
 const TOKEN_KEY = 'game_finder_jwt_token';
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+const getBaseUrl = (): string => getApiBaseUrl();
 
 function getAuthHeaders(): HeadersInit {
   const headers: Record<string, string> = {
@@ -76,7 +77,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
 
     // Attempt to hydrate from server if auth token is present
     if (typeof window !== 'undefined' && localStorage.getItem(TOKEN_KEY)) {
-      fetch(`${BASE_URL}/library/library`, { headers: getAuthHeaders() })
+      fetch(`${getBaseUrl()}/library/library`, { headers: getAuthHeaders() })
         .then((res) => (res.ok ? res.json() : null))
         .then((serverItems) => {
           if (Array.isArray(serverItems) && serverItems.length > 0) {
@@ -153,7 +154,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
 
       // Async backend dispatch with optimistic rollback on error
       try {
-        const res = await fetch(`${BASE_URL}/library/library/${gameId}`, {
+        const res = await fetch(`${getBaseUrl()}/library/library/${gameId}`, {
           method: 'POST',
           headers: getAuthHeaders(),
           body: JSON.stringify({
@@ -191,7 +192,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       setError(null);
 
       try {
-        const res = await fetch(`${BASE_URL}/library/library/${key}`, {
+        const res = await fetch(`${getBaseUrl()}/library/library/${key}`, {
           method: 'DELETE',
           headers: getAuthHeaders(),
         });
@@ -244,7 +245,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       setError(null);
 
       try {
-        const res = await fetch(`${BASE_URL}/library/favorites/${key}`, {
+        const res = await fetch(`${getBaseUrl()}/library/favorites/${key}`, {
           method: 'POST',
           headers: getAuthHeaders(),
         });
@@ -281,7 +282,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       persistItems(newItems);
 
       try {
-        await fetch(`${BASE_URL}/library/library/${key}`, {
+        await fetch(`${getBaseUrl()}/library/library/${key}`, {
           method: 'POST',
           headers: getAuthHeaders(),
           body: JSON.stringify({ playtime_hours: safeHours }),
@@ -311,7 +312,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       persistItems(newItems);
 
       try {
-        await fetch(`${BASE_URL}/library/library/${key}`, {
+        await fetch(`${getBaseUrl()}/library/library/${key}`, {
           method: 'POST',
           headers: getAuthHeaders(),
           body: JSON.stringify({ personal_rating: safeRating }),
