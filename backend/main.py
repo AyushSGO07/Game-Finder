@@ -21,10 +21,7 @@ if "backend" not in sys.modules:
         backend_pkg.__file__ = os.path.join(current_dir, "__init__.py")
         sys.modules["backend"] = backend_pkg
 
-try:
-    from backend.app.main import app
-except Exception:
-    from app.main import app
+from backend.app.main import app
 
 __all__ = ["app"]
 
