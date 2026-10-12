@@ -21,7 +21,31 @@ import {
   MOCK_GOTY_ARCHIVE,
 } from './mockData';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+/**
+ * Resolves API base URL dynamically at runtime.
+ * - In Vercel server-side functions / SSR, reads private service binding BACKEND_URL.
+ * - In browser, uses same-origin /api/v1 (routed by Vercel top-level rewrites) or NEXT_PUBLIC_API_URL.
+ * - Local fallback: http://localhost:8000/api/v1.
+ */
+export function getApiBaseUrl(): string {
+  if (typeof window === 'undefined') {
+    if (process.env.BACKEND_URL) {
+      return `${process.env.BACKEND_URL.replace(/\/$/, '')}/api/v1`;
+    }
+  }
+
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '');
+  }
+
+  if (typeof window !== 'undefined') {
+    return '/api/v1';
+  }
+
+  return 'http://localhost:8000/api/v1';
+}
+
+const getBaseUrl = (): string => getApiBaseUrl();
 const REQUEST_TIMEOUT_MS = 3000;
 
 function getAuthHeader(): Record<string, string> {
@@ -60,7 +84,7 @@ async function fetchWithTimeout(
 
 export async function fetchHeroGames(): Promise<HeroSlide[]> {
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/games/featured`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/games/featured`);
     if (!res.ok) {
       return MOCK_HERO_SLIDES;
     }
@@ -76,7 +100,7 @@ export async function fetchHeroGames(): Promise<HeroSlide[]> {
 
 export async function fetchShelfGames(category: ShelfCategory): Promise<GameCard[]> {
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/games/shelves/${category}`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/games/shelves/${category}`);
     if (!res.ok) {
       return MOCK_SHELF_GAMES[category] || [];
     }
@@ -92,7 +116,7 @@ export async function fetchShelfGames(category: ShelfCategory): Promise<GameCard
 
 export async function fetchGenres(): Promise<GenreTile[]> {
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/games/genres`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/games/genres`);
     if (!res.ok) {
       return MOCK_GENRE_TILES;
     }
@@ -111,7 +135,7 @@ export async function fetchGameDetails(id: string | number): Promise<GameDetail 
   if (!strId) return null;
 
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/games/${strId}`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/games/${strId}`);
     if (res.ok) {
       const data = await res.json();
       if (data && data.title) {
@@ -131,7 +155,7 @@ export async function searchGames(query: string): Promise<GameCard[]> {
   if (!trimmed) return [];
 
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/games/search?q=${encodeURIComponent(trimmed)}`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/games/search?q=${encodeURIComponent(trimmed)}`);
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data.items)) {
@@ -179,7 +203,7 @@ export async function fetchRecommendations(
 ): Promise<EnrichedRecommendation[]> {
   try {
     const res = await fetchWithTimeout(
-      `${BASE_URL}/recommendations`,
+      `${getBaseUrl()}/recommendations`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -226,7 +250,7 @@ export async function fetchRecommendations(
 export async function fetchGameReviews(gameId: string | number): Promise<GameReview[]> {
   const strId = String(gameId).trim();
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/library/reviews/${strId}`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/library/reviews/${strId}`);
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
@@ -255,7 +279,7 @@ export async function submitGameReview(data: {
   };
 
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/library/reviews`, {
+    const res = await fetchWithTimeout(`${getBaseUrl()}/library/reviews`, {
       method: 'POST',
       headers: {
         ...getAuthHeader(),
@@ -293,7 +317,7 @@ export async function submitGameReview(data: {
 
 export async function fetchUserRankings(): Promise<RankedList> {
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`, {
+    const res = await fetchWithTimeout(`${getBaseUrl()}/library/rankings`, {
       headers: {
         ...getAuthHeader(),
       },
@@ -343,7 +367,7 @@ export async function saveUserRankings(
   };
 
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/library/rankings`, {
+    const res = await fetchWithTimeout(`${getBaseUrl()}/library/rankings`, {
       method: 'POST',
       headers: {
         ...getAuthHeader(),
@@ -382,7 +406,7 @@ export async function saveUserRankings(
 
 export async function fetchGotyArchive(): Promise<GotyYearArchive[]> {
   try {
-    const res = await fetchWithTimeout(`${BASE_URL}/games/goty`);
+    const res = await fetchWithTimeout(`${getBaseUrl()}/games/goty`);
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
